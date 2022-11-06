@@ -5,7 +5,7 @@ export const Info = () => {
     return (
         <div className='bg-darkBg'>
             <ContainerSecond className='pb-[85px] pt-[100px]'>
-                <div className='flex gap-[40px] justify-center items-center flex-wrap'>
+                <div className='flex gap-[40px] justify-center flex-wrap'>
                     <div className='text-mainSecond'>
                 <div className="h-0.5 w-[175px] bg-mainSecond absolute mt-[-50px] "></div>
                         <h1 className="uppercase text-4xl"><span className='font-bodoni'>Embody</span> <span className=' font-black'>Your<br/>Imagination</span></h1>

@@ -5,13 +5,14 @@ import { ContainerSecond } from "../components/ContainerSecond";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Info } from "../components/Info";
+import { Parteners } from "../components/Parteners";
 import { Services } from "../components/Services";
 import main from "./../public/images/main.png";
 
 export default function Home() {
   return (
-    <div className=" h-screen">
-      <Header />
+    <div>
+      {/* <Header /> */}
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
       <div className={`background bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between">
@@ -168,33 +169,7 @@ export default function Home() {
               </div>
             </div>
           </div>
-          <div className="py-[65px] flex flex-wrap justify-center items-center gap-14">
-            <img
-              src="./images/company-1.png"
-              className="object-contain"
-              alt=""
-            />
-            <img
-              src="./images/company-2.png"
-              className="object-contain"
-              alt=""
-            />
-            <img
-              src="./images/company-3.png"
-              className="object-contain"
-              alt=""
-            />
-            <img
-              src="./images/company-4.png"
-              className="object-contain"
-              alt=""
-            />
-            <img
-              src="./images/company-5.png"
-              className="object-contain"
-              alt=""
-            />
-          </div>
+          <Parteners />
           <div className="py-[65px]">
             <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
             <p className="uppercase font-[Teko] text-2xl font-medium w-[150px] leading-none">
@@ -221,7 +196,7 @@ export default function Home() {
           </div>
         </ContainerSecond>
       </div>
-      <Footer />
+      {/* <Footer /> */}
     </div>
   );
 }
