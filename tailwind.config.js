@@ -13,6 +13,7 @@ module.exports = {
     colors: {
       'main': '#FFD800',
       'mainSecond': '#FBAD02',
+      'mainThird': '#F3B03C',
       'white': 'white',
       'black': 'black',
       'darkBg': '#111111',
@@ -27,6 +28,7 @@ module.exports = {
       '2xl': '1536px',
       'm-laptop': '1367px',
       'main': '1205px',
+      'contact': '776px'
     }
   },
   plugins: [],

@@ -44,7 +44,7 @@ export default function Home() {
               <div className="font-medium group">
                 <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
-                  Living room Decor
+                  Living Room Decor
                 </p>
                 <img
                   src="./images/main-1.png"
@@ -68,7 +68,7 @@ export default function Home() {
               <div className="font-medium group">
                 <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
-                  Kitchen roomDecor
+                  Kitchen Room Decor
                 </p>
                 <img
                   src="./images/main-3.png"
@@ -79,7 +79,7 @@ export default function Home() {
               </div>
             </div>
             <div className="absolute bottom-0 right-12 flex">
-              <Arrow left bg="bg-darkBgSecond" />
+              <Arrow left disabled />
               <Arrow right />
             </div>
           </div>

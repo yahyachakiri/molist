@@ -10,9 +10,9 @@ import { TeamMember } from "../components/TeamMember";
 export default function about() {
     return (
         <div>
-        <ArticleHeader image="./images/about.png" />
+        <ArticleHeader image="./images/about.png" title='About us' />
         <Info />
-        <Services />
+        <Services about />
         <ContainerSecond className="bg-white pt-[50px]">
             <hr className="w-28 bg-main mb-8 h-0.5 w-40" />
             <p className="uppercase font-[Teko] text-2xl font-medium leading-none">
