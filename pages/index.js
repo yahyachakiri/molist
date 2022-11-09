@@ -44,14 +44,14 @@ export default function Home() {
       <div className={`background bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between min-w-full">
           <div className="px-[70px]">
-            {/* <h1 className="uppercase text-5xl sm:text-6xl mt-12">
+            <h1 className="uppercase text-4xl sm:text-6xl mt-12">
               <span className="font-bodoni">Embody</span>{" "}
               <span className=" font-black">
                 Your
                 <br />
                 Imagination
               </span>
-            </h1> */}
+            </h1>
             <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
               <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
                 View Project
