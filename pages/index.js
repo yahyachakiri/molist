@@ -44,14 +44,14 @@ export default function Home() {
       <div className={`background bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between min-w-full">
           <div className="px-[70px]">
-            <h1 className="uppercase text-5xl sm:text-6xl mt-12">
+            {/* <h1 className="uppercase text-5xl sm:text-6xl mt-12">
               <span className="font-bodoni">Embody</span>{" "}
               <span className=" font-black">
                 Your
                 <br />
                 Imagination
               </span>
-            </h1>
+            </h1> */}
             <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
               <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
                 View Project
@@ -67,7 +67,7 @@ export default function Home() {
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
               </div>
             </div>
-            {/* <div className="flex sm:gap-[30px] gap-[15px]">
+            <div className="flex sm:gap-[30px] gap-[15px]">
               <div className="font-medium group">
                 <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
@@ -104,7 +104,7 @@ export default function Home() {
                   height="300"
                 />
               </div>
-            </div> */}
+            </div>
             <div className="absolute bottom-0 right-12 flex">
               <Arrow left onClickAction={onClickLeft} disabled={leftDisable} />
               <Arrow right onClickAction={onClickRight} disabled={rightDisable} />
