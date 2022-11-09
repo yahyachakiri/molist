@@ -67,7 +67,7 @@ export default function Home() {
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
               </div>
             </div>
-            <div className="flex sm:gap-[30px] gap-[15px]">
+            {/* <div className="flex sm:gap-[30px] gap-[15px]">
               <div className="font-medium group">
                 <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
                 <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
@@ -104,7 +104,7 @@ export default function Home() {
                   height="300"
                 />
               </div>
-            </div>
+            </div> */}
             <div className="absolute bottom-0 right-12 flex">
               <Arrow left onClickAction={onClickLeft} disabled={leftDisable} />
               <Arrow right onClickAction={onClickRight} disabled={rightDisable} />
