@@ -20,14 +20,18 @@ export default function Home() {
     setWidthBar(`${parseInt((count/3)*100)}%`)
   }, [count])
   const onClickRight = () => {
-    setCount(count + 1);
+    if (count < 3) {
+      setCount(count + 1);
+    }
     if (count < 3 && count > 1) {
       setRightDisable(true);
     }
     setLeftDisable(false);
   }
   const onClickLeft = () => {
-    setCount(count - 1);
+    if (count > 1) {
+      setCount(count - 1);
+    }
     if (count < 3 && count > 1) {
       setLeftDisable(true);
     }
