@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
-import React from 'react'
+import React, { useState } from 'react'
 import { ContainerSecond } from './ContainerSecond'
 import { Service } from './Service'
 
 export const Services = ({about}) => {
+    const [serviceId, setServiceId] = useState(1);
     return (
         <div className={`bg-white py-[50px] relative ${!about && 'overflow-hidden'}`}>
             <img src="./images/ServicesIcon.png" className='absolute top-[-300px] left-[-150px]' alt="" />
@@ -41,21 +42,21 @@ export const Services = ({about}) => {
                             <p className="uppercase font-[Teko] text-2xl font-medium w-[73px] leading-none">Our services</p>
                         </div>
                         <div className="flex flex-wrap gap-12 z-10">
-                            <button className='group font-medium'>
-                                <hr className="h-1 w-[30px] bg-main opacity-0 group-hover:opacity-100 mb-1" />
-                                <p className='opacity-50 group-hover:opacity-100'>Home Decor</p>
+                            <button onClick={() => setServiceId(0)} className='group font-medium'>
+                                <hr className={`h-1 w-[30px] bg-main ${serviceId == 0 ? 'opacity-100' : 'opacity-0'} mb-1`} />
+                                <p className={`${serviceId == 0 ? 'opacity-100' : 'opacity-50'}`}>Home Decor</p>
                             </button>
-                            <button className='group font-medium'>
-                                <hr className="h-1 w-[30px] bg-main opacity-100 mb-1" />
-                                <p className='opacity-100'>Interior Design</p>
+                            <button onClick={() => setServiceId(1)} className='group font-medium'>
+                                <hr className={`h-1 w-[30px] bg-main ${serviceId == 1 ? 'opacity-100' : 'opacity-0'} mb-1`} />
+                                <p className={`${serviceId == 1 ? 'opacity-100' : 'opacity-50'}`}>Interior Design</p>
                             </button>
-                            <button className='group font-medium'>
-                                <hr className="h-1 w-[30px] bg-main opacity-0 group-hover:opacity-100 mb-1" />
-                                <p className='opacity-50 group-hover:opacity-100'>Office design</p>
+                            <button onClick={() => setServiceId(2)} className='group font-medium'>
+                                <hr className={`h-1 w-[30px] bg-main ${serviceId == 2 ? 'opacity-100' : 'opacity-0'} mb-1`} />
+                                <p className={`${serviceId == 2 ? 'opacity-100' : 'opacity-50'}`}>Office design</p>
                             </button>
-                            <button className='group font-medium'>
-                                <hr className="h-1 w-[30px] bg-main opacity-0 group-hover:opacity-100 mb-1" />
-                                <p className='opacity-50 group-hover:opacity-100'>Light Decor</p>
+                            <button onClick={() => setServiceId(3)} className='group font-medium'>
+                                <hr className={`h-1 w-[30px] bg-main ${serviceId == 3 ? 'opacity-100' : 'opacity-0'} mb-1`} />
+                                <p className={`${serviceId == 3 ? 'opacity-100' : 'opacity-50'}`}>Light Decor</p>
                             </button>
                         </div>
                     </div>

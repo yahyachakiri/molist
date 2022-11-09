@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import { useEffect, useState } from "react";
 import { Arrow } from "../components/Arrow";
 import { Container } from "../components/Container";
 import { ContainerSecond } from "../components/ContainerSecond";
@@ -10,6 +11,28 @@ import { Services } from "../components/Services";
 import main from "./../public/images/main.png";
 
 export default function Home() {
+  const [count, setCount] = useState(1);
+  const [rightDisable, setRightDisable] = useState(false);
+  const [leftDisable, setLeftDisable] = useState(true);
+  const [widthBar, setWidthBar] = useState(`30%`);
+  useEffect(() => {
+    // setWidthBar((count/3)*100)
+    setWidthBar(`${parseInt((count/3)*100)}%`)
+  }, [count])
+  const onClickRight = () => {
+    setCount(count + 1);
+    if (count < 3 && count > 1) {
+      setRightDisable(true);
+    }
+    setLeftDisable(false);
+  }
+  const onClickLeft = () => {
+    setCount(count - 1);
+    if (count < 3 && count > 1) {
+      setLeftDisable(true);
+    }
+    setRightDisable(false);
+  }
   return (
     <div>
       {/* <Header /> */}
@@ -17,7 +40,7 @@ export default function Home() {
       <div className={`background bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between">
           <div className="px-[70px]">
-            <h1 className="uppercase text-6xl mt-12">
+            <h1 className="uppercase text-5xl sm:text-6xl mt-12">
               <span className="font-bodoni">Embody</span>{" "}
               <span className=" font-black">
                 Your
@@ -34,10 +57,10 @@ export default function Home() {
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
               <p className=" text-[30px] font-black">
-                <span className="text-[72px]">01</span>/03
+                <span className="text-[72px]">0{count}</span>/03
               </p>
               <div className="h-[3px] w-[180px] bg-[#C2C2C2] mb-8 relative">
-                <div className="absolute bg-main top-0 left-0 h-full w-[30%]"></div>
+                <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
               </div>
             </div>
             <div className="flex sm:gap-[30px] gap-[15px]">
@@ -79,8 +102,8 @@ export default function Home() {
               </div>
             </div>
             <div className="absolute bottom-0 right-12 flex">
-              <Arrow left disabled />
-              <Arrow right />
+              <Arrow left onClickAction={onClickLeft} disabled={leftDisable} />
+              <Arrow right onClickAction={onClickRight} disabled={rightDisable} />
             </div>
           </div>
         </Container>
@@ -107,7 +130,7 @@ export default function Home() {
             </p>
           </div>
         </div>
-        <div className="lg:w-1/2 h-[700px] relative group">
+        <div className="hidden lg:w-1/2 lg:block h-[700px] relative group">
           <img
             src="./images/project-2.png"
             className="absolute w-full h-full object-cover"
