@@ -38,7 +38,7 @@ body {
   /* scroll-behavior: smooth !important; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
-    font-family: 'Bodoni Moda', serif;
+    font-family: 'Roboto', sans-serif;
     
   /* background: black; */
 }
@@ -64,5 +64,5 @@ a {
   background-repeat: no-repeat;
   background-color: red; */
 }
-.teko {font-family: 'Bodoni Moda', serif;}
-.bodoni {font-family: 'Teko', sans-serif;}
+.font-teko {font-family: 'Bodoni Moda', serif;}
+.font-bodoni {font-family: 'Teko', sans-serif;}
