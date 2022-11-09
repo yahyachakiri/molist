@@ -42,7 +42,7 @@ export default function Home() {
       {/* <Header /> */}
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
       <div className={`background bg-no-repeat bg-cover bg-center`}>
-        <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between">
+        {/* <Container className="flex flex-wrap min-h-screen  text-white py-40 relative justify-center main:justify-between">
           <div className="px-[70px]">
             <h1 className="uppercase text-5xl sm:text-6xl mt-12">
               <span className="font-bodoni">Embody</span>{" "}
@@ -110,7 +110,7 @@ export default function Home() {
               <Arrow right onClickAction={onClickRight} disabled={rightDisable} />
             </div>
           </div>
-        </Container>
+        </Container> */}
       </div>
       <Info />
       <Services />
