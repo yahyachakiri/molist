@@ -11,7 +11,7 @@ export const Service = ({name, description, image}) => {
             </p>
             <hr className="bg-black z-10" />
             <div className="flex items-center gap-[175px] z-10">
-                <p className="font-[teko] text-lg">More</p>
+                <p className="font-teko text-lg">More</p>
                 <svg className="transition duration-300 group-hover:fill-white" xmlns="http://www.w3.org/2000/svg" width="47" height="14">
                 <path
                     d="M37.361 0 47 7l-9.639 7ZM0 7.637V6.364h37.36v1.273Z"

@@ -7,8 +7,7 @@ module.exports = {
   theme: {
     extend: {},
     fontFamily: {
-      'bodoni': 'Bodoni Moda',
-      'arimo': "'Arimo', sans serif",
+      'teko': "'Teko', sans-serif",
     },
     colors: {
       'main': '#FFD800',

@@ -49,7 +49,7 @@ export default function Home() {
               </span>
             </h1>
             <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
-              <p className="uppercase font-medium font-[Teko] absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
+              <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
                 View Project
               </p>
             </div>
@@ -125,7 +125,7 @@ export default function Home() {
           />
           <div className="absolute bottom-0 left-0 px-14 py-10 bg-darkBg">
             <p className="text-sm text-paragraph mb-2">Residential</p>
-            <p className="text-white text-4xl font-[Teko] max-w-[295px] group-hover:text-main">
+            <p className="text-white text-4xl font-teko max-w-[295px] group-hover:text-main">
               Class aptent taciti sociosqu ad litora torquent
             </p>
           </div>
@@ -138,7 +138,7 @@ export default function Home() {
           />
           <div className="absolute bottom-0 left-0 px-14 py-10 bg-darkBg">
             <p className="text-sm text-paragraph mb-2">Residential</p>
-            <p className="text-white text-4xl font-[Teko] max-w-[295px] group-hover:text-main">
+            <p className="text-white text-4xl font-teko max-w-[295px] group-hover:text-main">
               Class aptent taciti sociosqu ad litora torquent
             </p>
           </div>
@@ -147,7 +147,7 @@ export default function Home() {
       <div className="bg-white py-[65px]">
         <ContainerSecond>
           <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
-          <p className="uppercase font-[Teko] text-2xl font-medium w-[100px] leading-none">
+          <p className="uppercase font-teko text-2xl font-medium w-[100px] leading-none">
             Happy client says
           </p>
           <div className="flex flex-wrap justify-center gap-8 w-full mt-14">
@@ -166,7 +166,7 @@ export default function Home() {
                   alt=""
                 />
                 <div>
-                  <p className="font-medium font-[Teko] text-lg">Jont Hennry</p>
+                  <p className="font-medium font-teko text-lg">Jont Hennry</p>
                   <p className="opacity-50 text-sm">Ceo chiart</p>
                 </div>
               </div>
@@ -186,7 +186,7 @@ export default function Home() {
                   alt=""
                 />
                 <div>
-                  <p className="font-medium font-[Teko] text-lg">Jont Hennry</p>
+                  <p className="font-medium font-teko text-lg">Jont Hennry</p>
                   <p className="opacity-50 text-sm">Ceo chiart</p>
                 </div>
               </div>
@@ -195,7 +195,7 @@ export default function Home() {
           <Parteners />
           <div className="py-[65px]">
             <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
-            <p className="uppercase font-[Teko] text-2xl font-medium w-[150px] leading-none">
+            <p className="uppercase font-teko text-2xl font-medium w-[150px] leading-none">
               Our
               <br /> blog & news
             </p>
@@ -203,17 +203,17 @@ export default function Home() {
               <div>
                 <img src="./images/blog-1.png" width='443' height='275' className='object-cover object-center' alt="blog" />
                 <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-[Teko] text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
+                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
               </div>
               <div>
                 <img src="./images/blog-2.png" width='443' height='275' className='object-cover object-center' alt="blog" />
                 <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-[Teko] text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
+                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
               </div>
               <div>
                 <img src="./images/blog-3.png" width='443' height='275' className='object-cover object-center' alt="blog" />
                 <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-[Teko] text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
+                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
               </div>
             </div>
           </div>

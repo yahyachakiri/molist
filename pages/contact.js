@@ -30,7 +30,7 @@ export default function contact() {
                     <p>contact@molist.net</p>
                 </div>
                 <form action="" className='text-paragraph'>
-                    <h2 className="font-[Teko] font-medium text-2xl uppercase">Get in touch</h2>
+                    <h2 className="font-teko font-medium text-2xl uppercase">Get in touch</h2>
                     <div className="flex gap-16 flex-wrap max-w-[671px] mt-8">
                         <input type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
                         <input type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />

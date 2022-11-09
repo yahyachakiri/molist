@@ -15,7 +15,7 @@ export default function about() {
         <Services about />
         <ContainerSecond className="bg-white pt-[50px]">
             <hr className="w-28 bg-main mb-8 h-0.5 w-40" />
-            <p className="uppercase font-[Teko] text-2xl font-medium leading-none">
+            <p className="uppercase font-teko text-2xl font-medium leading-none">
             Meet <br />
             our team
             </p>

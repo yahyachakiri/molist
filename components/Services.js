@@ -39,7 +39,7 @@ export const Services = ({about}) => {
                     <div className="flex gap-14 justify-between flex-wrap items-end">
                         <div className='z-10'>
                             <hr className="w-35 bg-main mb-8 h-0.5" />
-                            <p className="uppercase font-[Teko] text-2xl font-medium w-[73px] leading-none">Our services</p>
+                            <p className="uppercase font-teko text-2xl font-medium w-[73px] leading-none">Our services</p>
                         </div>
                         <div className="flex flex-wrap gap-12 z-10">
                             <button onClick={() => setServiceId(0)} className='group font-medium'>
