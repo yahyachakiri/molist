@@ -16,7 +16,7 @@ const cache = new InMemoryCache({
 });
 
 const link = createHttpLink({
-	uri: `${process.env.NEXT_PUBLIC_WORDPRESS_API_URL}`,
+	uri: `http://molist.net/api`,
 });
 
 
