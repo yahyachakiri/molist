@@ -1,11 +1,19 @@
+/* eslint-disable react-hooks/rules-of-hooks */
+import { useState } from 'react'
+import client from '../../apollo/client'
 import { ArticleHeader } from '../../components/ArticleHeader'
 import { Container } from '../../components/Container'
 import { ContainerSecond } from '../../components/ContainerSecond'
+import { Header } from '../../components/Header'
 import { Project } from '../../components/Project'
+import { GET_MENU } from '../../queries/get-menu'
+import { GET_PROJECTS } from '../../queries/get-projects'
 
-export default function projects() {
+export default function projects({headerMenus, ProjectsCategory, projectsContent}) {
+    const [projectCategory,  setProjectCategory] = useState('all');
     return (
         <div className='bg-white pb-6'>
+            <Header headerMenus={headerMenus} />
             <ArticleHeader title='projects' image='./images/projects.png' white />
             <ContainerSecond className='py-[60px]'>
             <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
@@ -18,66 +26,48 @@ export default function projects() {
                 </span>
             </h1>
             <div className="flex gap-12 flex-wrap my-14">
-                <button className="font-black uppercase group">
-                    <hr className="w-35 bg-main mb-2 h-1 w-8 opacity-0 group-hover:opacity-100" />
-                    <p className='text-paragraph group-hover:text-black'>Interfaces</p>
-                </button>
-                <button className="font-black uppercase group">
-                    <hr className="w-35 bg-main mb-2 h-1 w-8 opacity-0 group-hover:opacity-100" />
-                    <p className='text-paragraph group-hover:text-black'>Moulds</p>
-                </button>
-                <button className="font-black uppercase group">
-                    <hr className="w-35 bg-main mb-2 h-1 w-8 opacity-0 group-hover:opacity-100" />
-                    <p className='text-paragraph group-hover:text-black'>Garden Furniture</p>
-                </button>
-                <button className="font-black uppercase group">
-                    <hr className="w-35 bg-main mb-2 h-1 w-8 opacity-0 group-hover:opacity-100" />
-                    <p className='text-paragraph group-hover:text-black'>Holograms</p>
+                {
+                    ProjectsCategory.map(item => {
+                        return (
+                            <button key={item.id} onClick={() => setProjectCategory(item.id)} className="font-black uppercase group">
+                                <hr className={`"w-35 bg-main mb-2 h-1 w-8 group-hover:opacity-100" ${projectCategory === item.id ? "opacity-100" : "opacity-0"}`} />
+                                <p className={`"group-hover:text-black" ${projectCategory === item.id ? "text-black" : "text-paragraph"}`}>{item.name}</p>
+                            </button>
+                        )
+                    })
+                }
+                <button onClick={() => setProjectCategory('all')} className="font-black uppercase group">
+                    <hr className={`"w-35 bg-main mb-2 h-1 w-8 group-hover:opacity-100" ${projectCategory === 'all' ? "opacity-100" : "opacity-0"}`} />
+                    <p className={`"group-hover:text-black" ${projectCategory === 'all' ? "text-black" : "text-paragraph"}`}>All</p>
                 </button>
             </div>
             </ContainerSecond>
             <Container className='flex gap-12 justify-center flex-wrap'>
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-1.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-2.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-3.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-4.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-5.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-6.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-7.png'
-                />
-                <Project 
-                    title='Class aptent taciti sociosqu ad litora torquent'
-                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                    image='./images/projects-8.png'
-                />
+                {
+                    projectsContent.filter(e => e.categories.nodes[0].id === projectCategory | projectCategory === 'all').map(project => {
+                        return (
+                            <Project key={projectsContent.indexOf(project)}
+                                title={project.title}
+                                description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
+                                image='./images/projects-1.png'
+                            />
+                        )
+                    })
+                }
             </Container>
         </div>
     )
+}
+export async function getStaticProps(context) {
+    const {data, loading} = await client.query({
+        query: GET_PROJECTS
+    });
+    return {
+        props: {
+            headerMenus:data?.menuItems?.edges,
+            ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
+            projectsContent:data?.projects?.nodes
+        },
+        revalidate: 1
+    }
 }
