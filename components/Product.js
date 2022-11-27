@@ -1,9 +1,11 @@
+import Link from "next/link"
+
 /* eslint-disable @next/next/no-img-element */
-export const Project = ({title, description, image, category}) => {
+export const Product = ({title, description, image, category, link}) => {
     return (
-        <div className="relative group overflow-hidden mb-40 cursor-pointer">
-            <img src={image} className="transition duration-300 group-hover:opacity-90 object-cover object-center" width="410" height="572.64" alt="" />
-            <div className="bg-darkBg flex items-center gap-10 absolute bottom-0 right-0 py-5 px-7 bg-white opacity-100 transition duration-300 transition duration-300 group-hover:opacity-0">
+        <div className="relative overflow-hidden max-w-[250px]">
+            <Link href={`shop/${link}`}><img src={image} className="cursor-pointer transition duration-300 hover:opacity-90 object-cover object-center w-[250px] h-[250px]" width="250" height="250" alt="" /></Link>
+            {/* <div className="bg-darkBg flex items-center gap-10 absolute bottom-0 right-0 py-5 px-7 bg-white opacity-100 transition duration-300 transition duration-300 group-hover:opacity-0">
                 <div>
                     <p className="text-paragraph text-sm capitalize">{category}</p>
                     <p className="uppercase text-2xl text-white font-teko font-medium max-w-[240px] mt-1">{title}</p>
@@ -16,7 +18,9 @@ export const Project = ({title, description, image, category}) => {
                 <p className="text-paragraph capitalize">{category}</p>
                 <p className="uppercase text-3xl font-teko">{title}</p>
                 <p className="text-paragraph mt-9">{description}</p>
-            </div>
+            </div> */}
+            <Link href={`shop/${link}`} className="font-[Teko] font-medium text-2xl my-2 hover:text-mainSecond transition duration-300 block">{title}</Link>
+            <button className="uppercase font-[Teko] font-medium text-lg text-paragraph hover:text-mainSecond transition duration-300">Add to cart</button>
         </div>
     )
 }

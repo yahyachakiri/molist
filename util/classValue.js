@@ -12,3 +12,10 @@ export const loopClassValue = (content, val) => {
     }
     return array;
 }
+export const loopImgValue = (content, val) => {
+    let array = [];
+    for (let i = 1; i < content.split(val).length; i++) {
+        array.push(content.split(val)[1]?.split('src="')[1]?.split('"')[0])
+    }
+    return array;
+}

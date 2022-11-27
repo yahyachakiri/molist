@@ -15,6 +15,7 @@ query NewQuery {
     projects:posts(where: {categoryName: "projects"}) {
       nodes {
         title
+        slug
         content
         categories {
           nodes {
