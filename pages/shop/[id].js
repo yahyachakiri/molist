@@ -31,7 +31,6 @@ export async function getStaticProps({params}) {
         id: params?.id,
       },
   });
-  console.log(data)
   return {
       props: {
           headerMenus:data?.menuItems?.edges,
