@@ -1,11 +1,11 @@
 import { useRouter } from 'next/router'
 import React from 'react'
-import client from '../../apollo/client';
-import { ContainerSecond } from '../../components/ContainerSecond';
-import { Header } from '../../components/Header';
-import { GET_PRODUCTS } from '../../queries/get-products';
-import { GET_PRODUCT } from '../../queries/get-product';
-import {imgValue, loopImgValue} from '../../util/classValue'
+import client from '../apollo/client';
+import { ContainerSecond } from './ContainerSecond';
+import { Header } from './Header';
+import { GET_PRODUCTS } from '../queries/get-products';
+import { GET_PRODUCT } from '../queries/get-product';
+import {imgValue, loopImgValue} from '../util/classValue'
 
 export default function Page({headerMenus, title, description, image, category, link}) {
   return (
