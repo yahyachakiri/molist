@@ -21,7 +21,7 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
             <ContainerSecond>
             <div className="flex gap-12 flex-wrap my-14">
                 {
-                    categories.map(item => {
+                    categories.filter(e => e.name != 'Uncategorized').map(item => {
                         return (
                             <button key={item.id} onClick={() => setProjectCategory(item.id)} className="font-black uppercase group">
                                 <hr className={`"w-35 bg-main mb-2 h-1 w-8 group-hover:opacity-100" ${projectCategory === item.id ? "opacity-100" : "opacity-0"}`} />
@@ -43,7 +43,7 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
                     :
                     products.filter(e => (e?.productCategories?.nodes[0]?.id === projectCategory | projectCategory === 'all') && e?.slug).map(product => {
                         return (
-                                <Product  key={products.indexOf(product)}
+                                <Product key={products.indexOf(product)}
                                     title={product?.name}
                                     link={product?.id}
                                     description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'

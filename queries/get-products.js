@@ -8,6 +8,7 @@ query NewQuery {
     Categories: productCategories {
       nodes {
         name
+        id
       }
     }
     products {
@@ -23,6 +24,7 @@ query NewQuery {
           productCategories {
             nodes {
               name
+              id
             }
           }
         }
@@ -37,6 +39,7 @@ query NewQuery {
           productCategories {
             nodes {
               name
+              id
             }
           }
         }
@@ -51,6 +54,7 @@ query NewQuery {
           productCategories {
             nodes {
               name
+              id
             }
           }
           name
@@ -63,6 +67,7 @@ query NewQuery {
           productCategories {
             nodes {
               name
+              id
             }
           }
         }
@@ -77,6 +82,7 @@ query NewQuery {
           productCategories {
             nodes {
               name
+              id
             }
           }
         }
