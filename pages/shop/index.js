@@ -36,7 +36,7 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
                 </button>
             </div>
             </ContainerSecond>
-            <Container className='flex gap-12 justify-center flex-wrap'>
+            <Container className='flex gap-12 justify-center flex-wrap pb-14'>
                 {
                     products.filter(e => e?.productCategories?.nodes[0]?.id === projectCategory | projectCategory === 'all').length === 0 ?
                     <p className='text-paragraph font-semibold mb-12'>There is no products in this category</p>

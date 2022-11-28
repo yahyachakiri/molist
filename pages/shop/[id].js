@@ -1,13 +1,14 @@
+/* eslint-disable @next/next/no-img-element */
 import { useRouter } from 'next/router'
 import React from 'react'
-import client from '../apollo/client';
-import { ContainerSecond } from './ContainerSecond';
-import { Header } from './Header';
-import { GET_PRODUCTS } from '../queries/get-products';
-import { GET_PRODUCT } from '../queries/get-product';
-import {imgValue, loopImgValue} from '../util/classValue'
+import client from '../../apollo/client';
+import { ContainerSecond } from '../../components/ContainerSecond';
+import { Header } from '../../components/Header';
+import { GET_PRODUCTS } from '../../queries/get-products';
+import { GET_PRODUCT } from '../../queries/get-product';
+import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({headerMenus, title, description, image, category, link}) {
+export default function Page({headerMenus, title, description, image}) {
   return (
     <>
       <Header headerMenus={headerMenus} />
@@ -35,6 +36,7 @@ export async function getStaticProps({params}) {
       props: {
           headerMenus:data?.menuItems?.edges,
           title: data?.product?.name,
+          id: data?.product?.id,
           image:data?.product?.image?.sourceUrl,
           description: data?.product?.description,
       },
@@ -54,6 +56,7 @@ export async function getStaticPaths() {
       pathsData.push( {params: {id: product?.id}} );
     }
   })
+  console.log(pathsData)
 
 	return {
 		paths: pathsData,
