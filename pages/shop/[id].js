@@ -9,7 +9,7 @@ import { GET_PRODUCT } from '../../queries/get-product';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
 export default function Page({headerMenus, title, description, image}) {
-  if (description) {
+  if (title) {
     return (
       <>
         <Header headerMenus={headerMenus} />
