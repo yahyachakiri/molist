@@ -9,10 +9,10 @@ import {imgValue, loopImgValue} from '../../util/classValue'
 
 export default function Page({headerMenus, title, projectContent}) {
   let propertyArray = [];
-  for (let i = 1; i < projectContent.split('property-title').length; i++) {
+  for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
-        title: projectContent.split('property-title')[i]?.split('>')[1]?.split('</')[0],
-        description: projectContent.split('property-descripton')[i]?.split('>')[1]?.split('</')[0],
+        title: projectContent?.split('property-title')[i]?.split('>')[1]?.split('</')[0],
+        description: projectContent?.split('property-descripton')[i]?.split('>')[1]?.split('</')[0],
       })
   }
   let paragraphArray = [];
