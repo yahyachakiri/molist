@@ -22,47 +22,51 @@ export default function Page({headerMenus, title, projectContent}) {
         description: projectContent?.split('paragraph')[i]?.split('>')[1]?.split('</')[0],
       })
   }
-  return (
-    <>
-      <Header headerMenus={headerMenus} />
-      <div className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white'>
-            <img src={imgValue(projectContent, 'banner')} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
-            <ContainerSecond>
-                <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
-                <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
-                <div className="flex flex-wrap gap-10">
+  if (projectContent) {
+    return (
+      <>
+        <Header headerMenus={headerMenus} />
+        <div className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white'>
+              <img src={imgValue(projectContent, 'banner')} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
+              <ContainerSecond>
+                  <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
+                  <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
+                  <div className="flex flex-wrap gap-10">
+                    {
+                      propertyArray.map(property => {
+                        return (
+                        <div key={propertyArray.indexOf(property)} className='w-[300px]'>
+                            <p className="font-teko text-3xl uppercase">{property.title}</p>
+                            <p className='text-lg text-paragraph'>{property.description}</p>
+                        </div>
+                        )
+                      })
+                    }
+                  </div>
                   {
-                    propertyArray.map(property => {
+                    paragraphArray.map(paragraph => {
                       return (
-                      <div key={propertyArray.indexOf(property)} className='w-[300px]'>
-                          <p className="font-teko text-3xl uppercase">{property.title}</p>
-                          <p className='text-lg text-paragraph'>{property.description}</p>
-                      </div>
+                        <div key={paragraphArray.indexOf(paragraph)} className="pt-24">
+                            <h2 className='font-teko text-4xl font-medium mb-7'>{paragraph.title}</h2>
+                            <p className="text-paragraph">{paragraph.description}</p>
+                        </div>
                       )
                     })
                   }
-                </div>
-                {
-                  paragraphArray.map(paragraph => {
-                    return (
-                      <div key={paragraphArray.indexOf(paragraph)} className="pt-24">
-                          <h2 className='font-teko text-4xl font-medium mb-7'>{paragraph.title}</h2>
-                          <p className="text-paragraph">{paragraph.description}</p>
-                      </div>
-                    )
-                  })
-                }
-                <div className="mt-40">
-                  {
-                    loopImgValue(projectContent, 'slider')?.map(img => {
-                      return  <img key={loopImgValue(projectContent, 'slider').indexOf(img)} src=".././images/project.png" className='h-[300px] sm:h-[706px] object-cover object-center' alt="" />
-                    })
-                  }
-                </div>
-            </ContainerSecond>
-        </div>
-    </>
-  )
+                  <div className="mt-40">
+                    {
+                      loopImgValue(projectContent, 'slider')?.map(img => {
+                        return  <img key={loopImgValue(projectContent, 'slider').indexOf(img)} src=".././images/project.png" className='h-[300px] sm:h-[706px] object-cover object-center' alt="" />
+                      })
+                    }
+                  </div>
+              </ContainerSecond>
+          </div>
+      </>
+    )
+  }
+  return <div>404</div>
+
 }
 
 export async function getStaticProps({params}) {
@@ -100,6 +104,6 @@ export async function getStaticPaths() {
 	return {
 		// paths: pathsData,
     paths: pathsData,
-		fallback: false
+		fallback: true
 	};
 }
