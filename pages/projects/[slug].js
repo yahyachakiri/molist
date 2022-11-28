@@ -16,10 +16,10 @@ export default function Page({headerMenus, title, projectContent}) {
       })
   }
   let paragraphArray = [];
-  for (let i = 1; i < projectContent.split('header').length; i++) {
+  for (let i = 1; i < projectContent?.split('header')?.length; i++) {
       paragraphArray.push({
         title: projectContent.split('header')[i]?.split('>')[1]?.split('</')[0],
-        description: projectContent.split('paragraph')[i]?.split('>')[1]?.split('</')[0],
+        description: projectContent?.split('paragraph')[i]?.split('>')[1]?.split('</')[0],
       })
   }
   return (
