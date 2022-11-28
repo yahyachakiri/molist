@@ -1,5 +1,4 @@
 /* eslint-disable react-hooks/rules-of-hooks */
-import Link from 'next/link'
 import { useState } from 'react'
 import client from '../../apollo/client'
 import { ArticleHeader } from '../../components/ArticleHeader'
@@ -7,16 +6,14 @@ import { Container } from '../../components/Container'
 import { ContainerSecond } from '../../components/ContainerSecond'
 import { Header } from '../../components/Header'
 import { Product } from '../../components/Product'
-import { Project } from '../../components/Project'
-import { GET_MENU } from '../../queries/get-menu'
 import { GET_PRODUCTS } from '../../queries/get-products'
-import { GET_PROJECTS } from '../../queries/get-projects'
 
 export default function Shop({headerMenus, categories, shopContent, products}) {
     const [projectCategory,  setProjectCategory] = useState('all');
+    const [cart, setCart] = useState("");
     return (
         <div className='bg-white pb-6'>
-            <Header headerMenus={headerMenus} />
+            <Header headerMenus={headerMenus} cart={cart} />
             <ArticleHeader title='Shop' image='./images/projects.png' white />
             <ContainerSecond>
             <div className="flex gap-12 flex-wrap my-14">
@@ -44,10 +41,13 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
                     products.filter(e => (e?.productCategories?.nodes[0]?.id === projectCategory | projectCategory === 'all') && e?.slug).map(product => {
                         return (
                                 <Product key={products.indexOf(product)}
+                                    id={product.id}
                                     title={product?.name}
                                     link={product?.id}
                                     description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
                                     image={product?.image?.sourceUrl}
+                                    cart={cart}
+                                    setCart={setCart}
                                 />
                         )
                     })
