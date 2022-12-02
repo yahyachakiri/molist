@@ -54,7 +54,7 @@ export default function contact({headerMenus, contactContent}) {
                         <textarea rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' placeholder='Here goes your message' />
                         <div className="flex items-center mt-11 cursor-pointer">
                             <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase' value="Send message" />
-                            <svg xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path fill="#ffd800" d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                            <svg xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path fill="#F3B03C" d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
                         </div>
                     </form>
                 </Container>
