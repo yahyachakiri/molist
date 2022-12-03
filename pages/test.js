@@ -81,6 +81,10 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
   console.log(homeContent)
   
   return (
+    <div dangerouslySetInnerHTML={{__html: homeContent}} />
+  )
+
+  return (
     <div>
       <Header headerMenus={headerMenus} />
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
