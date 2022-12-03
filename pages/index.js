@@ -120,7 +120,7 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
                         }
                       </p>
                       <img
-                        src={item.image}
+                        src='http://molist.net/wp-content/uploads/2022/11/main-2.png'
                         alt=""
                         width="200"
                         height="300"
