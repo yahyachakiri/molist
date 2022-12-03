@@ -7,10 +7,10 @@ export const Header = ({headerMenus, cart}) => {
     const [menu, setMenu] = useState(false);
     const [itemsCart, setItemsCart] = useState([]);
     useEffect(() => {
-        // if (localStorage.getItem("cart")?.split(",")) {
-            // setItemsCart(localStorage.getItem("cart")?.split(","));
-            console.log(localStorage.getItem("cart").length)
-        // }
+        if (localStorage.getItem("cart")?.split(",")) {
+            setItemsCart(localStorage.getItem("cart")?.split(","));
+            // console.log(localStorage.getItem("cart").length)
+        }
     },[cart])
     // console.log(cart);
     return (
