@@ -65,7 +65,12 @@ export default function Page({headerMenus, title, projectContent}) {
       </>
     )
   }
-  return <div>404</div>
+  <>
+      <Header headerMenus={headerMenus} />
+        <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
+          <p className='font-[Teko] font-medium text-xl'>Loading...</p>
+        </ContainerSecond>
+    </>
 
 }
 

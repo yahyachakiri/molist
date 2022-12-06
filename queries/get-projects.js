@@ -33,5 +33,8 @@ query NewQuery {
         }
       }
     }
+    Content:pageBy(uri: "projects") {
+      content
+    }
   }
 `;

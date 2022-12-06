@@ -38,7 +38,8 @@ export const Product = ({id, title, description, image, category, link, cart, se
                 <p className="text-paragraph mt-9">{description}</p>
             </div> */}
             <Link href={`shop/${link}`} className="font-[Teko] font-medium text-2xl my-2 hover:text-mainSecond transition duration-300 block">{title}</Link>
-            <button onClick={() => setCart(id)} className="uppercase font-[Teko] font-medium text-lg text-paragraph hover:text-mainSecond transition duration-300">Add to cart</button>
+            {/* <button onClick={() => setCart(id)} className="uppercase font-[Teko] font-medium text-lg text-paragraph hover:text-mainSecond transition duration-300">Add to cart</button> */}
+            <button className="uppercase font-[Teko] font-medium text-lg text-paragraph hover:text-mainSecond transition duration-300">Add to cart</button>
         </div>
     )
 }

@@ -77,8 +77,6 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
       img: homeContent.split('client-img')[i]?.split('src="')[1]?.split('"')[0]
     });
   }
-
-  console.log(homeContent)
   
   return (
     <div>
@@ -122,7 +120,7 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
                         }
                       </p>
                       <img
-                        src='http://molist.net/wp-content/uploads/2022/11/main-2.png'
+                        src={item.image}
                         alt=""
                         width="200"
                         height="300"

@@ -9,13 +9,15 @@ import { Header } from '../../components/Header'
 import { Project } from '../../components/Project'
 import { GET_MENU } from '../../queries/get-menu'
 import { GET_PROJECTS } from '../../queries/get-projects'
+import { imgValue } from '../../util/classValue'
 
-export default function projects({headerMenus, ProjectsCategory, projects}) {
+export default function projects({headerMenus, ProjectsCategory, projects, projectsContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
+    console.log(projectsContent);
     return (
         <div className='bg-white pb-6'>
             <Header headerMenus={headerMenus} />
-            <ArticleHeader title='projects' image='./images/projects.png' white />
+            <ArticleHeader title='projects' image={imgValue(projectsContent, 'banner')} white />
             <ContainerSecond className='py-[60px]'>
             <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
             <h1 className="uppercase text-4xl sm:text-5xl">
@@ -54,7 +56,8 @@ export default function projects({headerMenus, ProjectsCategory, projects}) {
                                 <Project
                                     title={project.title}
                                     description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
-                                    image='./images/projects-1.png'
+                                    // image='./images/projects-1.png'
+                                    image={imgValue(project.content, 'img')}
                                     category={project.categories.nodes[0].name}
                                 />
                             </Link>
@@ -73,7 +76,8 @@ export async function getStaticProps(context) {
         props: {
             headerMenus:data?.menuItems?.edges,
             ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
-            projects:data?.projects?.nodes
+            projects:data?.projects?.nodes,
+            projectsContent:data?.Content?.content
         },
         revalidate: 1
     }

@@ -7,6 +7,7 @@ import { ContainerSecond } from '../../components/ContainerSecond'
 import { Header } from '../../components/Header'
 import { Product } from '../../components/Product'
 import { GET_PRODUCTS } from '../../queries/get-products'
+import { imgValue } from '../../util/classValue'
 
 export default function Shop({headerMenus, categories, shopContent, products}) {
     const [projectCategory,  setProjectCategory] = useState('all');
@@ -14,7 +15,7 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
     return (
         <div className='bg-white pb-6'>
             <Header headerMenus={headerMenus} cart={cart} />
-            <ArticleHeader title='Shop' image='./images/projects.png' white />
+            <ArticleHeader title='Shop' image={imgValue(shopContent, 'banner')} white />
             <ContainerSecond>
             <div className="flex gap-12 flex-wrap my-14">
                 {
