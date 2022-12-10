@@ -13,7 +13,6 @@ import { imgValue } from '../../util/classValue'
 
 export default function projects({headerMenus, ProjectsCategory, projects, projectsContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
-    console.log(projectsContent);
     return (
         <div className='bg-white pb-6'>
             <Header headerMenus={headerMenus} />

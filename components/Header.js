@@ -3,16 +3,19 @@ import React, { useEffect, useState } from 'react'
 import { Container } from './Container'
 import { motion, AnimatePresence } from "framer-motion"
 
-export const Header = ({headerMenus, cart}) => {
+export const Header = ({headerMenus, cart, items}) => {
     const [menu, setMenu] = useState(false);
     const [itemsCart, setItemsCart] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("cart")?.split(",")) {
             setItemsCart(localStorage.getItem("cart")?.split(","));
-            // console.log(localStorage.getItem("cart").length)
         }
     },[cart])
-    // console.log(cart);
+    useEffect(() => {
+        if (items) {
+            setItemsCart(items);
+        }
+    }, [items])
     return (
         <div className='py-10 fixed w-full z-50 bg-gradient-to-b from-black'>
             <Container className='flex items-center justify-between px-4'>
