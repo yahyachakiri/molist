@@ -14,6 +14,7 @@ import { imgValue } from '../../util/classValue'
 export default function Shop({headerMenus, categories, shopContent, products, contactContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     const [cart, setCart] = useState("");
+    const [cartItems, setCartItems] = useState([]);
     return (
         <>
         <Header headerMenus={headerMenus} cart={cart} />
@@ -52,6 +53,8 @@ export default function Shop({headerMenus, categories, shopContent, products, co
                                     image={product?.image?.sourceUrl}
                                     cart={cart}
                                     setCart={setCart}
+                                    cartItems={cartItems}
+                                    setCartItems={setCartItems}
                                 />
                         )
                     })
