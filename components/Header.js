@@ -53,7 +53,7 @@ export const Header = ({ cart, items}) => {
                     >
                         <ul className='text-white font-black text-3xl uppercase flex flex-col gap-4'>
                             <li><Link onClick={() => setMenu(false)} href='/#parteners' className='transition duration-300 hover:text-mainSecond'>Our Parteners</Link></li>
-                            <li><Link onClick={() => setMenu(false)} href='/shp^^' className='transition duration-300 hover:text-mainSecond'>Shop</Link></li>
+                            <li><Link onClick={() => setMenu(false)} href='/shop' className='transition duration-300 hover:text-mainSecond'>Shop</Link></li>
                             <li><Link onClick={() => setMenu(false)} href='/about' className='transition duration-300 hover:text-mainSecond'>About</Link></li>
                             <li><Link onClick={() => setMenu(false)} href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li>
                             {
