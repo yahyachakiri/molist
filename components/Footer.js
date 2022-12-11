@@ -1,8 +1,10 @@
 import Link from 'next/link'
-import React from 'react'
+import React, { useState } from 'react'
+import { classValue, loopClassValue } from '../util/classValue';
 import { Container } from './Container'
 
-export const Footer = () => {
+export const Footer = ({headerMenus, contactContent}) => {
+    const [menu, setMenu] = useState(false);
     return (
         <footer className='bg-black py-20'>
             <Container className='flex gap-14 flex-wrap justify-around text-white uppercase text-sm font-black'>
@@ -13,15 +15,26 @@ export const Footer = () => {
                     <p>Copyright &copy; {new Date().getFullYear()} Chiar. All Rights Reversed.</p>
                 </div>
                 <div className='flex flex-col gap-2'>
-                    <p>Instanbul, Turkey</p>
-                    <p>+905434950753</p>
-                    <p>contact@molis.net</p>
+                    <p>{classValue(contactContent,'adress-main')}</p>
+                    {
+                        loopClassValue(contactContent, 'info').map(item => {
+                            return <p key={loopClassValue(contactContent, 'info').indexOf(item)}>{item}</p>
+                        })
+                    }
+                    {/* <p>+905434950753</p>
+                    <p>contact@molis.net</p> */}
+                    <p>{classValue(contactContent,'email')}</p>
                 </div>
                 <ul className='flex flex-col gap-2'>
-                    <li><Link href='/#parteners' className='transition duration-300 hover:text-mainSecond'>Our Parteners</Link></li>
+                    {/* <li><Link href='/#parteners' className='transition duration-300 hover:text-mainSecond'>Our Parteners</Link></li>
                     <li><Link href='#' className='transition duration-300 hover:text-mainSecond'>Career</Link></li>
                     <li><Link href='/about' className='transition duration-300 hover:text-mainSecond'>About</Link></li>
-                    <li><Link href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li>
+                    <li><Link href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li> */}
+                    {
+                        headerMenus?.map(item => {
+                            return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
+                        })
+                    }
                 </ul>
             </Container>
         </footer>

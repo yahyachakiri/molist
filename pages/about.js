@@ -3,16 +3,18 @@ import client from "../apollo/client";
 import { ArticleHeader } from "../components/ArticleHeader";
 import { Container } from "../components/Container";
 import { ContainerSecond } from "../components/ContainerSecond";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { Info } from "../components/Info";
 import { Partners } from "../components/Partners";
 import { Services } from "../components/Services";
 import { TeamMember } from "../components/TeamMember";
 import { GET_ABOUT } from "../queries/get-about";
+import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { imgValue } from "../util/classValue";
 
-export default function about({headerMenus, partnersContent, homeContent, aboutContent}) {
+export default function about({headerMenus, partnersContent, homeContent, aboutContent, contactContent}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -109,6 +111,7 @@ export default function about({headerMenus, partnersContent, homeContent, aboutC
             </Container>
             <Partners partnersContent={partnersContent} />
         </div>
+        <Footer contactContent={contactContent} />
         </div>
     );
 }
@@ -117,12 +120,16 @@ export async function getStaticProps(context) {
     const {data} = await client.query({
         query: GET_ABOUT
     });
+    const dataContact = await client.query({
+        query: GET_CONTACT
+      });
     return {
         props: {
             headerMenus:data?.menuItems?.edges,
             homeContent:data?.Home?.content,
             aboutContent:data?.About?.content,
             partnersContent: data?.Partners?.content,
+            contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1
     }

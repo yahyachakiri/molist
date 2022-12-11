@@ -9,11 +9,12 @@ import { Header } from "../components/Header";
 import { Info } from "../components/Info";
 import { Partners } from "../components/Partners";
 import { Services } from "../components/Services";
+import { GET_CONTACT } from "../queries/get-contact";
 import { GET_HOME } from "../queries/get-home";
 import { GET_MENU } from "../queries/get-menu";
 import main from "./../public/images/main.png";
 
-export default function Home({headerMenus, homeContent, partnersContent}) {
+export default function Home({ homeContent, partnersContent, contactContent,}) {
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(true);
@@ -80,7 +81,7 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
   
   return (
     <div>
-      <Header headerMenus={headerMenus} />
+      <Header />
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
       <div loading="lazy" style={{backgroundImage: `url(${homeContent.split('src="')[1].split('"')[0]})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
@@ -94,9 +95,9 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
               </span>
             </h1>
             <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
-              <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
+              {/* <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
                 View Project
-              </p>
+              </p> */}
             </div>
           </div>
           <div>
@@ -288,7 +289,7 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
             </div> */}
           </div>
           <Partners partnersContent={partnersContent} />
-          <div className="py-[65px]">
+          {/* <div className="py-[65px]">
             <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
             <p className="uppercase font-teko text-2xl font-medium w-[150px] leading-none">
               Our
@@ -311,10 +312,10 @@ export default function Home({headerMenus, homeContent, partnersContent}) {
                 <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
               </div>
             </div>
-          </div>
+          </div> */}
         </ContainerSecond>
       </div>
-      {/* <Footer /> */}
+      <Footer contactContent={contactContent} />
     </div>
   );
 }
@@ -323,11 +324,15 @@ export async function getStaticProps(context) {
   const {data, loading} = await client.query({
     query: GET_HOME
   });
+  const dataContact = await client.query({
+    query: GET_CONTACT
+  });
   return {
     props: {
       headerMenus:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
       partnersContent: data?.Partners?.content,
+      contactContent:dataContact?.data?.Contact?.content
     },
     revalidate: 1
   }

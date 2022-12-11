@@ -5,17 +5,20 @@ import client from '../../apollo/client'
 import { ArticleHeader } from '../../components/ArticleHeader'
 import { Container } from '../../components/Container'
 import { ContainerSecond } from '../../components/ContainerSecond'
+import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import { Project } from '../../components/Project'
+import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_MENU } from '../../queries/get-menu'
 import { GET_PROJECTS } from '../../queries/get-projects'
 import { imgValue } from '../../util/classValue'
 
-export default function projects({headerMenus, ProjectsCategory, projects, projectsContent}) {
+export default function projects({headerMenus, ProjectsCategory, projects, projectsContent, contactContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     return (
+        <>
+        <Header headerMenus={headerMenus} />
         <div className='bg-white pb-6'>
-            <Header headerMenus={headerMenus} />
             <ArticleHeader title='projects' image={imgValue(projectsContent, 'banner')} white />
             <ContainerSecond className='py-[60px]'>
             <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
@@ -65,18 +68,24 @@ export default function projects({headerMenus, ProjectsCategory, projects, proje
                 }
             </Container>
         </div>
+        <Footer contactContent={contactContent} />
+        </>
     )
 }
 export async function getStaticProps(context) {
     const {data, loading} = await client.query({
         query: GET_PROJECTS
     });
+    const dataContact = await client.query({
+        query: GET_CONTACT
+    })
     return {
         props: {
             headerMenus:data?.menuItems?.edges,
             ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
             projects:data?.projects?.nodes,
-            projectsContent:data?.Content?.content
+            projectsContent:data?.Content?.content,
+            contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1
     }

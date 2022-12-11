@@ -16,7 +16,7 @@ const cache = new InMemoryCache({
 });
 
 const link = createHttpLink({
-	uri: `http://molist.net/api`,
+	uri: `https://admin.molist.net/api`,
 });
 
 

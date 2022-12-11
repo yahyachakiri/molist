@@ -3,6 +3,7 @@ import React, { useEffect, useState } from 'react'
 import client from '../apollo/client';
 import { ArticleHeader } from '../components/ArticleHeader'
 import { Container } from '../components/Container';
+import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { GET_CONTACT } from '../queries/get-contact';
 import { GET_MENU } from '../queries/get-menu';
@@ -59,6 +60,7 @@ export default function contact({headerMenus, contactContent}) {
                     </form>
                 </Container>
             </div>
+            <Footer contactContent={contactContent} />
         </div>
     )
 }

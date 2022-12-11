@@ -4,17 +4,20 @@ import client from '../../apollo/client'
 import { ArticleHeader } from '../../components/ArticleHeader'
 import { Container } from '../../components/Container'
 import { ContainerSecond } from '../../components/ContainerSecond'
+import { Footer } from '../../components/Footer'
 import { Header } from '../../components/Header'
 import { Product } from '../../components/Product'
+import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_PRODUCTS } from '../../queries/get-products'
 import { imgValue } from '../../util/classValue'
 
-export default function Shop({headerMenus, categories, shopContent, products}) {
+export default function Shop({headerMenus, categories, shopContent, products, contactContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     const [cart, setCart] = useState("");
     return (
+        <>
+        <Header headerMenus={headerMenus} cart={cart} />
         <div className='bg-white pb-6'>
-            <Header headerMenus={headerMenus} cart={cart} />
             <ArticleHeader title='Shop' image={imgValue(shopContent, 'banner')} white />
             <ContainerSecond>
             <div className="flex gap-12 flex-wrap my-14">
@@ -55,18 +58,24 @@ export default function Shop({headerMenus, categories, shopContent, products}) {
                 }
             </Container>
         </div>
+        <Footer contactContent={contactContent} />
+        </>
     )
 }
 export async function getStaticProps(context) {
     const {data, loading} = await client.query({
         query: GET_PRODUCTS
     });
+    const dataContact = await client.query({
+        query: GET_CONTACT
+      });
     return {
         props: {
             headerMenus:data?.menuItems?.edges,
             products:data?.products?.nodes,
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
+            contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1
     }

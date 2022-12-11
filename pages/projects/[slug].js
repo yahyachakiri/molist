@@ -2,12 +2,14 @@ import { useRouter } from 'next/router'
 import React from 'react'
 import client from '../../apollo/client';
 import { ContainerSecond } from '../../components/ContainerSecond';
+import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
+import { GET_CONTACT } from '../../queries/get-contact';
 import { GET_PROJECT } from '../../queries/get-project';
 import { GET_PROJECTS } from '../../queries/get-projects';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({headerMenus, title, projectContent}) {
+export default function Page({headerMenus, title, projectContent, contactContent}) {
   let propertyArray = [];
   for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
@@ -62,6 +64,7 @@ export default function Page({headerMenus, title, projectContent}) {
                   </div>
               </ContainerSecond>
           </div>
+          <Footer contactContent={contactContent} />
       </>
     )
   }
@@ -70,6 +73,7 @@ export default function Page({headerMenus, title, projectContent}) {
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
           <p className='font-[Teko] font-medium text-xl'>Loading...</p>
         </ContainerSecond>
+        <Footer contactContent={contactContent} />
     </>
 
 }
@@ -82,12 +86,15 @@ export async function getStaticProps({params}) {
         slug: params?.slug,
       },
     });
-    console.log(params);
+    const dataContact = await client.query({
+      query: GET_CONTACT
+    })
   return {
       props: {
           headerMenus:data?.menuItems?.edges,
           title: data?.Project?.title,
           projectContent: data?.Project?.content,
+          contactContent:dataContact?.data?.Contact?.content
       },
       revalidate: 1
   }

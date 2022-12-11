@@ -7,8 +7,10 @@ import { Header } from '../../components/Header';
 import { GET_PRODUCTS } from '../../queries/get-products';
 import { GET_PRODUCT } from '../../queries/get-product';
 import {imgValue, loopImgValue} from '../../util/classValue'
+import { Footer } from '../../components/Footer';
+import { GET_CONTACT } from '../../queries/get-contact';
 
-export default function Page({headerMenus, title, description, image, id}) {
+export default function Page({headerMenus, title, description, image, id, contactContent}) {
   const [cart, setCart] = useState("");
     useEffect(() => {
         if (cart === id) {
@@ -34,6 +36,7 @@ export default function Page({headerMenus, title, description, image, id}) {
           <button onClick={() => setCart(id)} className="bg-darkBg w-full p-4 uppercase font-[Teko] font-medium text-xl text-white hover:text-mainSecond transition duration-300">Add to cart</button>
         </div>
         </ContainerSecond>
+        <Footer contactContent={contactContent} />
       </>
     )
   }
@@ -43,6 +46,7 @@ export default function Page({headerMenus, title, description, image, id}) {
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
           <p className='font-[Teko] font-medium text-xl'>Loading...</p>
         </ContainerSecond>
+        <Footer contactContent={contactContent} />
     </>
   )
 }
@@ -55,6 +59,9 @@ export async function getStaticProps({params}) {
         id: params?.id,
       },
   });
+  const dataContact = await client.query({
+    query: GET_CONTACT
+  })
   return {
       props: {
           headerMenus:data?.menuItems?.edges,
@@ -62,6 +69,7 @@ export async function getStaticProps({params}) {
           id: data?.product?.id,
           image:data?.product?.image?.sourceUrl,
           description: data?.product?.description,
+          contactContent:dataContact?.data?.Contact?.content
       },
       revalidate: 1
   }

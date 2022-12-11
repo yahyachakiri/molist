@@ -2,12 +2,14 @@ import { useMutation } from "@apollo/client";
 import { useEffect, useState } from "react";
 import client from "../apollo/client";
 import { ContainerSecond } from "../components/ContainerSecond";
+import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { SEND_EMAIL } from "../queries/email";
+import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_PRODUCTS } from "../queries/get-products";
 
-export default function Cart({headerMenus, productsInfo, categories}) {
+export default function Cart({headerMenus, productsInfo, categories, contactContent}) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("cart")?.split(",")) {
@@ -115,6 +117,7 @@ export default function Cart({headerMenus, productsInfo, categories}) {
                 }
             </ContainerSecond>
         </div>
+        <Footer contactContent={contactContent} />
     </>
   )
 }
@@ -122,12 +125,16 @@ export async function getStaticProps(context) {
     const {data, loading} = await client.query({
         query: GET_PRODUCTS
     });
+    const dataContact = await client.query({
+        query: GET_CONTACT
+      });
     return {
         props: {
             headerMenus:data?.menuItems?.edges,
             productsInfo:data?.products?.nodes,
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
+            contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1
     }
