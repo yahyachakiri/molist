@@ -1,18 +1,33 @@
 import React from "react";
+import client from "../apollo/client";
 import { ArticleHeader } from "../components/ArticleHeader";
 import { Container } from "../components/Container";
 import { ContainerSecond } from "../components/ContainerSecond";
+import { Header } from "../components/Header";
 import { Info } from "../components/Info";
-import { Parteners } from "../components/Parteners";
+import { Partners } from "../components/Partners";
 import { Services } from "../components/Services";
 import { TeamMember } from "../components/TeamMember";
+import { GET_ABOUT } from "../queries/get-about";
+import { GET_MENU } from "../queries/get-menu";
+import { imgValue } from "../util/classValue";
 
-export default function about() {
+export default function about({headerMenus, partnersContent, homeContent, aboutContent}) {
+    let members = [];
+    for (let i = 1; i < aboutContent.split('member-img').length; i++) {
+        members.push({
+            img: aboutContent.split('member-img')[i]?.split('src="')[1]?.split('"')[0],
+            name: aboutContent.split('member-name')[i]?.split('>')[1]?.split('</')[0],
+            position: aboutContent.split('member-position')[i]?.split('>')[1]?.split('</')[0],
+            description: aboutContent.split('member-description')[i]?.split('>')[1]?.split('</')[0],
+        });
+    }
     return (
         <div>
-        <ArticleHeader image="./images/about.png" title='About us' />
-        <Info />
-        <Services about />
+        <Header headerMenus={headerMenus} />
+        <ArticleHeader image={imgValue(aboutContent, 'banner')} title='About us' />
+        <Info homeContent={homeContent} />
+        <Services about homeContent={homeContent} />
         <ContainerSecond className="bg-white pt-[50px]">
             <hr className="w-28 bg-main mb-8 h-0.5 w-40" />
             <p className="uppercase font-teko text-2xl font-medium leading-none">
@@ -22,7 +37,20 @@ export default function about() {
         </ContainerSecond>
         <div className="py-[50px] bg-white">
             <Container className="flex flex-wrap justify-center gap-10 pb-[50px] bg-white'">
-            <TeamMember
+            {
+                members.map(member => {
+                    return (
+                        <TeamMember
+                            key={members?.indexOf(member.name)}
+                            image={member.img}
+                            name={member.name}
+                            position={member.position}
+                            description={member.description}
+                        />
+                    )
+                })
+            }
+            {/* <TeamMember
                 image="./images/member-1.png"
                 title="General Manager"
                 name="Souhaib Younes"
@@ -77,10 +105,25 @@ export default function about() {
                     credit and acknowledgment in preparing facades and interior and
                     exterior decoration for a large group of major facilities around the
                     world before he landed in Istanbul."
-            />
+            /> */}
             </Container>
-            <Parteners />
+            <Partners partnersContent={partnersContent} />
         </div>
         </div>
     );
+}
+
+export async function getStaticProps(context) {
+    const {data} = await client.query({
+        query: GET_ABOUT
+    });
+    return {
+        props: {
+            headerMenus:data?.menuItems?.edges,
+            homeContent:data?.Home?.content,
+            aboutContent:data?.About?.content,
+            partnersContent: data?.Partners?.content,
+        },
+        revalidate: 1
+    }
 }
