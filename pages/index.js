@@ -94,11 +94,11 @@ export default function Home({ homeContent, partnersContent, contactContent,}) {
                 Imagination
               </span>
             </h1>
-            <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
-              {/* <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
+            {/* <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
+              <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
                 View Project
-              </p> */}
-            </div>
+              </p>
+            </div> */}
           </div>
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
