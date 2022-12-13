@@ -22,7 +22,7 @@ export default function projects({headerMenus, ProjectsCategory, projects, proje
             <ArticleHeader title='projects' image={imgValue(projectsContent, 'banner')} white />
             <ContainerSecond className='py-[60px]'>
             <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
-            <h1 className="uppercase text-4xl sm:text-5xl">
+            <h1 className="uppercase text-4xl sm:text-5xl font-helveticaneue-black">
                 <span className="font-bodoni">Embody</span>{" "}
                 <span className=" font-black">
                     Your

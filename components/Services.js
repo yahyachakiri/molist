@@ -33,7 +33,7 @@ export const Services = ({about, homeContent}) => {
             <img src="./images/ServicesIcon.png" className='absolute top-[-300px] left-[-150px]' alt="" />
             <ContainerSecond className='z-20'>
                 <div className="flex justify-between gap-6 flex-wrap">
-                    <h1 className="font-black text-5xl uppercase flex z-20">Our Services</h1>
+                    <h1 className="font-black text-5xl uppercase flex z-20 font-helveticaneue-black">Our Services</h1>
                     <div className="flex flex-wrap gap-12 z-10">
                             {
                                 serviceType.map(type => {

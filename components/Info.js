@@ -20,23 +20,23 @@ export const Info = ({homeContent}) => {
                 <div className='flex gap-[40px] justify-center flex-wrap'>
                     <div className='text-mainSecond'>
                 <div className="h-0.5 w-[175px] bg-mainSecond absolute mt-[-50px] "></div>
-                        <h1 className="uppercase text-4xl"><span className='font-bodoni'>Embody</span> <span className=' font-black'>Your<br/>Imagination</span></h1>
-                        <h1 className='text-[248px] font-black'>{classValue(homeContent, 'years-experience')}</h1>
-                        <p className="uppercase w-[136px] text-3xl font-black">Years experience</p>
+                        <h1 className="uppercase text-4xl"><span className='font-bodoni'>Embody</span> <span className=' font-helveticaneue-black'>Your<br/>Imagination</span></h1>
+                        <h1 className='text-[248px] font-helveticaneue-black'>{classValue(homeContent, 'years-experience')}</h1>
+                        <p className="uppercase w-[136px] text-3xl font-helveticaneue-black">Years experience</p>
                     </div>
                     <div className="max-w-[310px] flex flex-col gap-9 text-paragraph">
-                        <h1 className="font-black text-[27px] uppercase text-white">About us</h1>
+                        <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">About us</h1>
                         <p className='text-sm'>{classValue(homeContent, 'about')}</p>
-                        <h1 className="font-black text-[27px] uppercase text-white">Vision</h1>
+                        <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">Vision</h1>
                         <p className="text-sm">{classValue(homeContent, 'vision')}</p>
                     </div>
                     <div className="max-w-[310px] flex flex-col gap-4 text-paragraph">
-                        <h1 className="font-black text-[27px] uppercase text-white">OUR ACHIEVEMENTS</h1>
+                        <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">OUR ACHIEVEMENTS</h1>
                         {
                             array.map(item => {
                                 return (
                                     <>
-                                        <p className="font-thin text-white text-5xl">{item.number}</p>
+                                        <p className="font-thin text-white text-5xl font-helveticaneue">{item.number}</p>
                                         <p className="text-sm">{item.description}</p>
                                     </>
                                 )

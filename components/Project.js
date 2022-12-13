@@ -2,7 +2,7 @@
 export const Project = ({title, description, image, category}) => {
     return (
         <div className="relative group overflow-hidden mb-40 cursor-pointer">
-            <img src={image} className="transition duration-300 group-hover:opacity-90 object-cover object-center w-[410px] h-[572.64px]" width="410" height="572.64" alt="" />
+            <img src={image} className="transition duration-300 group-hover:opacity-60 object-cover object-center w-[410px] h-[572.64px]" width="410" height="572.64" alt="" />
             <div className="bg-darkBg flex items-center gap-10 absolute bottom-0 right-0 py-5 px-7 bg-white opacity-100 transition duration-300 transition duration-300 group-hover:opacity-0">
                 <div>
                     <p className="text-paragraph text-sm capitalize">{category}</p>

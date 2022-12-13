@@ -33,7 +33,7 @@ export default function contact({headerMenus, contactContent}) {
             </div>
             <div className='bg-darkBg py-[150px]'>
                 <Container className='flex flex-wrap gap-10 justify-around'>
-                    <div className='text-paragraph flex flex-col gap-6'>
+                    <div className='text-white flex flex-col gap-6'>
                         <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
                         <p className="uppercase">Info Contact Us</p>
                         <h1 className="font-black text-mainSecond uppercase text-3xl mt-2">{classValue(contactContent,'adress-main')}</h1>
@@ -46,13 +46,13 @@ export default function contact({headerMenus, contactContent}) {
                         </div>
                         <p>{classValue(contactContent,'email')}</p>
                     </div>
-                    <form action="" className='text-paragraph'>
+                    <form action="" className='text-white'>
                         <h2 className="font-teko font-medium text-2xl uppercase">Get in touch</h2>
                         <div className="flex gap-16 flex-wrap max-w-[671px] mt-8">
-                            <input type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
-                            <input type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
+                            <input type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
+                            <input type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
                         </div>
-                        <textarea rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' placeholder='Here goes your message' />
+                        <textarea rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' placeholder='Here goes your message' />
                         <div className="flex items-center mt-11 cursor-pointer">
                             <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase' value="Send message" />
                             <svg xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path fill="#F3B03C" d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>

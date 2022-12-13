@@ -12,7 +12,7 @@ query NewQuery {
         }
       }
     }
-    projects:posts(where: {categoryName: "projects"}) {
+    projects: posts(where: {categoryName: "projects"}) {
       nodes {
         title
         slug
@@ -21,6 +21,11 @@ query NewQuery {
           nodes {
             id
             name
+          }
+        }
+        featuredImage {
+          node {
+            sourceUrl
           }
         }
       }

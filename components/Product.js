@@ -27,9 +27,9 @@ export const Product = ({id, title, description, image, category, link, cart, se
                 <div className="cursor-pointer absolute top-1/2 left-1/2 translate-x-[-50%] translate-y-[-50%] hidden group-hover:block bg-mainSecond hover:bg-black py-2 px-4 hover:text-mainSecond transition duration-300">
                     {
                         cartItems.includes(id) ?
-                        <Link href='/cart' className="uppercase font-[Teko] font-medium text-lg text-white">View cart</Link>
+                        <Link href='/cart' className="uppercase font-teko font-medium text-lg text-white">View cart</Link>
                         :
-                        <button onClick={() => {setCart(id); setCartItems([...cartItems, id])}} className="uppercase font-[Teko] font-medium text-lg text-white">Add to cart</button>
+                        <button onClick={() => {setCart(id); setCartItems([...cartItems, id])}} className="uppercase font-teko font-medium text-lg text-white">Add to cart</button>
                     }
                 </div>
             </div>

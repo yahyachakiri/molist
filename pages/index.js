@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "../apollo/client";
 import { Arrow } from "../components/Arrow";
@@ -12,14 +13,28 @@ import { Services } from "../components/Services";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_HOME } from "../queries/get-home";
 import { GET_MENU } from "../queries/get-menu";
+import { GET_PROJECTS } from "../queries/get-projects";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, partnersContent, contactContent,}) {
+export default function Home({ homeContent, partnersContent, contactContent, projectsItems}) {
+  const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(true);
   const [widthBar, setWidthBar] = useState(`30%`);
   const [paragArray, setParagArray] = useState([]);
+  console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
+  // console.log(projectsItems[0].categories.nodes.name)
+  const onProjectClickRight = () => {
+    if (projectsItems.length > countProject + 2) {
+      setCountProject(countProject + 2);
+    }
+  }
+  const onProjectClickLeft = () => {
+    if (countProject > 0) {
+      setCountProject(countProject - 2);
+    }
+  }
   useEffect(() => {
     // setWidthBar((count/3)*100)
     setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/3))*100)}%`)
@@ -86,8 +101,8 @@ export default function Home({ homeContent, partnersContent, contactContent,}) {
       <div loading="lazy" style={{backgroundImage: `url(${homeContent.split('src="')[1].split('"')[0]})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
           <div className="px-[70px]">
-            <h1 className="uppercase text-4xl sm:text-6xl mt-12">
-              <span className="font-bodoni">Embody</span>{" "}
+            <h1 className="uppercase text-4xl sm:text-6xl mt-12 font-helveticaneue-black">
+              <span className="font-bodoni text-[32px] sm:text-[56px]">Embody</span>{" "}
               <span className=" font-black">
                 Your
                 <br />
@@ -184,12 +199,31 @@ export default function Home({ homeContent, partnersContent, contactContent,}) {
       <Services homeContent={homeContent} />
       <div className="flex relative flex-col lg:flex-row">
         <div className="absolute left-[5%] top-1/2 translate-y-[-50%] z-10">
-          <Arrow left />
+          <Arrow left onClickAction={onProjectClickLeft} />
         </div>
         <div className="absolute right-[5%] top-1/2 translate-y-[-50%] z-10">
-          <Arrow right />
+          <Arrow right onClickAction={onProjectClickRight} />
         </div>
-        <div className="lg:w-1/2 h-[700px] relative group">
+        {
+          projectsItems.slice(countProject, countProject + 2).map(projectItem => {
+            return (
+              <Link href={`/projects/${projectItem?.slug}`} key={projectItem?.slug} className="lg:w-1/2 h-[700px] relative group">
+                <img
+                  src={projectItem?.featuredImage?.node?.sourceUrl}
+                  className="absolute w-full h-full object-cover"
+                  alt=""
+                />
+                <div className="absolute bottom-0 left-0 px-14 py-10 bg-darkBg">
+                  <p className="text-sm text-paragraph mb-2 capitalize">{projectItem?.categories?.nodes[0]?.name}</p>
+                  <p className="text-white text-4xl font-teko max-w-[295px] group-hover:text-main">
+                  {projectItem?.title}
+                  </p>
+                </div>
+              </Link>
+            )
+          })
+        }
+        {/* <div className="lg:w-1/2 h-[700px] relative group">
           <img
             src="./images/project-1.png"
             className="absolute w-full h-full object-cover"
@@ -202,7 +236,7 @@ export default function Home({ homeContent, partnersContent, contactContent,}) {
             </p>
           </div>
         </div>
-        <div className="hidden lg:w-1/2 lg:block h-[700px] relative group">
+        <div className="lg:w-1/2 h-[700px] relative group">
           <img
             src="./images/project-2.png"
             className="absolute w-full h-full object-cover"
@@ -214,7 +248,7 @@ export default function Home({ homeContent, partnersContent, contactContent,}) {
               Class aptent taciti sociosqu ad litora torquent
             </p>
           </div>
-        </div>
+        </div> */}
       </div>
       <div className="bg-white py-[65px]">
         <ContainerSecond>
@@ -327,12 +361,16 @@ export async function getStaticProps(context) {
   const dataContact = await client.query({
     query: GET_CONTACT
   });
+  const dataProjects = await client.query({
+    query: GET_PROJECTS
+  });
   return {
     props: {
       headerMenus:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
       partnersContent: data?.Partners?.content,
-      contactContent:dataContact?.data?.Contact?.content
+      projectsItems:dataProjects?.data?.projects?.nodes,
+      contactContent:dataContact?.data?.Contact?.content,
     },
     revalidate: 1
   }
