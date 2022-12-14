@@ -31,6 +31,7 @@ export const Services = ({about, homeContent, servicesArray, servicesCategories,
                         servicesItems.filter(e => e.categories.nodes[0].id == servicesCategories[serviceId].id).map(item => {
                             return (
                                 <Service 
+                                    id={item.id}
                                     key={servicesItems.indexOf(item)}
                                     name={item.title}
                                     description={classValue(item.content, '<p')} 

@@ -1,9 +1,10 @@
 /* eslint-disable @next/next/no-img-element */
+import Link from "next/link";
 import React from "react";
 
-export const Service = ({name, description, image}) => {
+export const Service = ({id, name, description, image}) => {
     return (
-        <div className="w-[331px] h-[454px] cursor-pointer group py-[100px] px-9 flex flex-col justify-between relative transition duration-300 hover:text-white z-10">
+        <Link href={`/services/${id}`} className="w-[331px] h-[454px] cursor-pointer group py-[100px] px-9 flex flex-col justify-between relative transition duration-300 hover:text-white z-10">
             <img src={image} alt="" className="absolute top-0 left-0 w-full h-full object-cover opacity-0 transition duration-300 group-hover:opacity-100" />
             <h2 className="uppercase text-3xl font-medium z-10 font-helveticaneue-medium-extended">{name}</h2>
             <p className="z-10 truncate">
@@ -19,6 +20,6 @@ export const Service = ({name, description, image}) => {
                 />
                 </svg>
             </div>
-        </div>
+        </Link>
     );
 };
