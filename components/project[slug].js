@@ -9,7 +9,7 @@ import { GET_PROJECT } from '../../queries/get-project';
 import { GET_PROJECTS } from '../../queries/get-projects';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({menuItems, title, projectContent, contactContent, projectImage}) {
+export default function Page({menuItems, title, projectContent, contactContent}) {
   let propertyArray = [];
   for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
@@ -29,8 +29,8 @@ export default function Page({menuItems, title, projectContent, contactContent, 
       <>
         <Header menuItems={menuItems} />
         <div className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white'>
-              <img src={projectImage} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
-              {/* <ContainerSecond>
+              <img src={imgValue(projectContent, 'banner')} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
+              <ContainerSecond>
                   <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
                   <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
                   <div className="flex flex-wrap gap-10">
@@ -62,9 +62,6 @@ export default function Page({menuItems, title, projectContent, contactContent, 
                       })
                     }
                   </div>
-              </ContainerSecond> */}
-              <ContainerSecond>
-                <div className='projects py-8' dangerouslySetInnerHTML={{__html: projectContent}}/>
               </ContainerSecond>
           </div>
           <Footer contactContent={contactContent} menuItems={menuItems} />
@@ -97,7 +94,6 @@ export async function getStaticProps({params}) {
           menuItems:data?.menuItems?.edges,
           title: data?.Project?.title,
           projectContent: data?.Project?.content,
-          projectImage: data?.Project?.featuredImage?.node?.sourceUrl,
           contactContent:dataContact?.data?.Contact?.content
       },
       revalidate: 1

@@ -11,7 +11,7 @@ import { Project } from '../../components/Project'
 import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_MENU } from '../../queries/get-menu'
 import { GET_PROJECTS } from '../../queries/get-projects'
-import { imgValue } from '../../util/classValue'
+import { classValue, imgValue } from '../../util/classValue'
 
 export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
@@ -57,7 +57,7 @@ export default function projects({menuItems, ProjectsCategory, projects, project
                             <Link key={projects.indexOf(project)} href={`/projects/${project.slug}`}>
                                 <Project
                                     title={project?.title}
-                                    description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
+                                    description={classValue(project?.content, "<p")}
                                     // image='./images/projects-1.png'
                                     image={project?.featuredImage?.node?.sourceUrl}
                                     category={project.categories.nodes[0].name}

@@ -15,7 +15,7 @@ export const Project = ({title, description, image, category}) => {
             <div className="absolute top-0 left-0 p-12 opacity-0 transition duration-300 transition duration-300 group-hover:opacity-100">
                 <p className="text-paragraph capitalize">{category}</p>
                 <p className="uppercase text-3xl font-teko">{title}</p>
-                <p className="text-paragraph mt-9">{description}</p>
+                <p className="text-paragraph mt-9 truncate">{description}</p>
             </div>
         </div>
     )

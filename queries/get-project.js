@@ -2,13 +2,18 @@ import { gql } from "@apollo/client";
 
 export const GET_PROJECT = gql`
 query NewQuery($slug: String) {
-    Project:postBy(slug: $slug) {
+    Project:projectBy(slug: $slug) {
       id
-      title
-      slug
-      content
+    title
+    slug
+    content
+    featuredImage {
+      node {
+        sourceUrl
+      }
     }
-    menuItems {
+  }
+  menuItems {
       edges {
         node {
           label

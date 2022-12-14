@@ -12,7 +12,7 @@ query NewQuery {
         }
       }
     }
-    projects: posts(where: {categoryName: "projects"}) {
+    projects {
       nodes {
         title
         slug
