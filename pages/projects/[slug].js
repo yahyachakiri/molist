@@ -9,7 +9,7 @@ import { GET_PROJECT } from '../../queries/get-project';
 import { GET_PROJECTS } from '../../queries/get-projects';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({headerMenus, title, projectContent, contactContent}) {
+export default function Page({menuItems, title, projectContent, contactContent}) {
   let propertyArray = [];
   for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
@@ -27,7 +27,7 @@ export default function Page({headerMenus, title, projectContent, contactContent
   if (projectContent) {
     return (
       <>
-        <Header headerMenus={headerMenus} />
+        <Header menuItems={menuItems} />
         <div className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white'>
               <img src={imgValue(projectContent, 'banner')} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
               <ContainerSecond>
@@ -69,7 +69,7 @@ export default function Page({headerMenus, title, projectContent, contactContent
     )
   }
   <>
-      <Header headerMenus={headerMenus} />
+      <Header menuItems={menuItems} />
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
           <p className='font-[Teko] font-medium text-xl'>Loading...</p>
         </ContainerSecond>
@@ -91,7 +91,7 @@ export async function getStaticProps({params}) {
     })
   return {
       props: {
-          headerMenus:data?.menuItems?.edges,
+          menuItems:data?.menuItems?.edges,
           title: data?.Project?.title,
           projectContent: data?.Project?.content,
           contactContent:dataContact?.data?.Contact?.content
