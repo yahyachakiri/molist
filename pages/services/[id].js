@@ -14,7 +14,6 @@ import { GET_SERVICE } from '../../queries/get-service';
 import { ArticleHeader } from '../../components/ArticleHeader';
 
 export default function Page({menuItems, title, content, image, id, contactContent, loading}) {
-    console.log(title, loading, menuItems, title, content, image);
 //   const [cart, setCart] = useState("");
 //     useEffect(() => {
 //         if (cart === id) {
@@ -33,7 +32,7 @@ export default function Page({menuItems, title, content, image, id, contactConte
     return (
       <>
         <Header menuItems={menuItems}/>
-        <ArticleHeader title={title} image={image} small />
+        <ArticleHeader title={title} image={image} />
         <ContainerSecond className='py-10'>
           <div className='services' dangerouslySetInnerHTML={{__html: content}}/>
         </ContainerSecond>

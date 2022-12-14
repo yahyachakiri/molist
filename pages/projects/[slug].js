@@ -1,6 +1,7 @@
 import { useRouter } from 'next/router'
 import React from 'react'
 import client from '../../apollo/client';
+import { ArticleHeader } from '../../components/ArticleHeader';
 import { ContainerSecond } from '../../components/ContainerSecond';
 import { Footer } from '../../components/Footer';
 import { Header } from '../../components/Header';
@@ -28,8 +29,7 @@ export default function Page({menuItems, title, projectContent, contactContent, 
     return (
       <>
         <Header menuItems={menuItems} />
-        <div className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white'>
-              <img src={projectImage} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' />
+              {/* <img src={projectImage} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' /> */}
               {/* <ContainerSecond>
                   <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
                   <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
@@ -63,12 +63,10 @@ export default function Page({menuItems, title, projectContent, contactContent, 
                     }
                   </div>
               </ContainerSecond> */}
+                <ArticleHeader title={title} image={projectImage} />
               <ContainerSecond>
-                <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
-                <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
                 <div className='projects py-8' dangerouslySetInnerHTML={{__html: projectContent}}/>
               </ContainerSecond>
-          </div>
           <Footer contactContent={contactContent} menuItems={menuItems} />
       </>
     )
