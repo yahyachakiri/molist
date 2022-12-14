@@ -64,6 +64,8 @@ export default function Page({menuItems, title, projectContent, contactContent, 
                   </div>
               </ContainerSecond> */}
               <ContainerSecond>
+                <h1 className="text-6xl sm:text-8xl font-black uppercase mt-32 sm:mt-40">{title}</h1>
+                <hr className="w-35 bg-main my-7 h-0.5 w-40 inline-block" />
                 <div className='projects py-8' dangerouslySetInnerHTML={{__html: projectContent}}/>
               </ContainerSecond>
           </div>

@@ -47,13 +47,12 @@ export default function services({menuItems, contactContent, categories, service
                     :
                     servicesInfo.filter(e => e.categories.nodes[0].id === serviceCategory | serviceCategory === 'all').map(service => {
                         return (
-                            <Link key={servicesInfo.indexOf(service)} href={`/services/${service.id}`}>
-                                <Service
+                                <Service key={servicesInfo.indexOf(service)}
+                                id={service.id}
                                 name={service?.title}
                                 image={service?.featuredImage?.node?.sourceUrl}
                                 description={classValue(service?.content, "<p")}
                                 />
-                            </Link>
                         )
                     })
                 }
