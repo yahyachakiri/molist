@@ -10,7 +10,7 @@ import {imgValue, loopImgValue} from '../../util/classValue'
 import { Footer } from '../../components/Footer';
 import { GET_CONTACT } from '../../queries/get-contact';
 
-export default function Page({headerMenus, title, description, image, id, contactContent}) {
+export default function Page({menuItems, title, description, image, id, contactContent}) {
   const [cart, setCart] = useState("");
     useEffect(() => {
         if (cart === id) {
@@ -27,7 +27,7 @@ export default function Page({headerMenus, title, description, image, id, contac
   if (title) {
     return (
       <>
-        <Header headerMenus={headerMenus} cart={cart} />
+        <Header menuItems={menuItems} cart={cart} />
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12'>
         <img src={image} className="transition duration-300 hover:opacity-90 object-cover object-center min-w-[250px] min-h-[250px] w-[350px] h-[350px]" width="250" height="250" alt="" />
         <div>
@@ -36,17 +36,17 @@ export default function Page({headerMenus, title, description, image, id, contac
           <button onClick={() => setCart(id)} className="bg-darkBg w-full p-4 uppercase font-[Teko] font-medium text-xl text-white hover:text-mainSecond transition duration-300">Add to cart</button>
         </div>
         </ContainerSecond>
-        <Footer contactContent={contactContent} />
+        <Footer contactContent={contactContent} menuItems={menuItems} />
       </>
     )
   }
   return (
     <>
-      <Header headerMenus={headerMenus} />
+      <Header menuItems={menuItems} />
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
           <p className='font-[Teko] font-medium text-xl'>Loading...</p>
         </ContainerSecond>
-        <Footer contactContent={contactContent} />
+        <Footer contactContent={contactContent} menuItems={menuItems} />
     </>
   )
 }
@@ -64,7 +64,7 @@ export async function getStaticProps({params}) {
   })
   return {
       props: {
-          headerMenus:data?.menuItems?.edges,
+          menuItems:data?.menuItems?.edges,
           title: data?.product?.name,
           id: data?.product?.id,
           image:data?.product?.image?.sourceUrl,

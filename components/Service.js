@@ -4,9 +4,9 @@ import React from "react";
 export const Service = ({name, description, image}) => {
     return (
         <div className="w-[331px] h-[454px] cursor-pointer group py-[100px] px-9 flex flex-col justify-between relative transition duration-300 hover:text-white z-10">
-            <img src={image} alt="Service" className="absolute top-0 left-0 w-full h-full object-cover opacity-0 transition duration-300 group-hover:opacity-100" />
+            <img src={image} alt="" className="absolute top-0 left-0 w-full h-full object-cover opacity-0 transition duration-300 group-hover:opacity-100" />
             <h2 className="uppercase text-3xl font-medium z-10 font-helveticaneue-medium-extended">{name}</h2>
-            <p className="z-10">
+            <p className="z-10 truncate">
                 {description}
             </p>
             <hr className="bg-black z-10" />

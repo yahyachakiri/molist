@@ -2,21 +2,41 @@ import { gql } from "@apollo/client";
 
 export const GET_SERVICES = gql`
 query NewQuery {
-    pageBy(uri: "services") {
-        featuredImage {
-          node {
-            sourceUrl
+  services {
+    nodes {
+      title
+      content
+      id
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
+      categories {
+        nodes {
+          id
+        }
+      }
+    }
+  }
+  servicesImg:pageBy(uri: "services") {
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
+  }
+      categories(where: {name: "services"}) {
+        nodes {
+          children {
+            nodes {
+              id
+              name
+              slug
+            }
           }
         }
       }
-      category(id: "dGVybTo4Ng==\"") {
-        children {
-        nodes {
-            name
-            slug
-        }
-        }
-    }
       menuItems {
         edges {
           node {

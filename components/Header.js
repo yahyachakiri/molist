@@ -3,7 +3,7 @@ import React, { useEffect, useState } from 'react'
 import { Container } from './Container'
 import { motion, AnimatePresence } from "framer-motion"
 
-export const Header = ({ cart, items}) => {
+export const Header = ({ cart, items, menuItems}) => {
     const [menu, setMenu] = useState(false);
     const [itemsCart, setItemsCart] = useState([]);
     useEffect(() => {
@@ -53,15 +53,15 @@ export const Header = ({ cart, items}) => {
                     >
                         <ul className='text-white font-black text-3xl uppercase flex flex-col gap-4'>
                             {/* <li><Link onClick={() => setMenu(false)} href='/#parteners' className='transition duration-300 hover:text-mainSecond'>Our Parteners</Link></li> */}
-                            <li><Link onClick={() => setMenu(false)} href='/services' className='transition duration-300 hover:text-mainSecond'>Services</Link></li>
+                            {/* <li><Link onClick={() => setMenu(false)} href='/services' className='transition duration-300 hover:text-mainSecond'>Services</Link></li>
                             <li><Link onClick={() => setMenu(false)} href='/shop' className='transition duration-300 hover:text-mainSecond'>Shop</Link></li>
                             <li><Link onClick={() => setMenu(false)} href='/projects' className='transition duration-300 hover:text-mainSecond'>Projects</Link></li>
                             <li><Link onClick={() => setMenu(false)} href='/about' className='transition duration-300 hover:text-mainSecond'>About</Link></li>
-                            <li><Link onClick={() => setMenu(false)} href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li>
+                            <li><Link onClick={() => setMenu(false)} href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li> */}
                             {
-                                // headerMenus?.map(item => {
-                                //     return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
-                                // })
+                                menuItems?.map(item => {
+                                    return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
+                                })
                             }
                         </ul>
                     </motion.div>

@@ -13,11 +13,11 @@ import { GET_MENU } from '../../queries/get-menu'
 import { GET_PROJECTS } from '../../queries/get-projects'
 import { imgValue } from '../../util/classValue'
 
-export default function projects({headerMenus, ProjectsCategory, projects, projectsContent, contactContent}) {
+export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     return (
         <>
-        <Header headerMenus={headerMenus} />
+        <Header menuItems={menuItems} />
         <div className='bg-white pb-6'>
             <ArticleHeader title='projects' image={imgValue(projectsContent, 'banner')} white />
             <ContainerSecond className='py-[60px]'>
@@ -56,10 +56,10 @@ export default function projects({headerMenus, ProjectsCategory, projects, proje
                         return (
                             <Link key={projects.indexOf(project)} href={`/projects/${project.slug}`}>
                                 <Project
-                                    title={project.title}
+                                    title={project?.title}
                                     description='Class aptent taciti sociosqu ad litora  torquent per conubia nostra.faucibus sed  dolor eget posuere Nam ac elit a ante vitae viverra urna nulla. Mauris elementum  accumsan leo vel tempor.'
                                     // image='./images/projects-1.png'
-                                    image={imgValue(project.content, 'img')}
+                                    image={project?.featuredImage?.node?.sourceUrl}
                                     category={project.categories.nodes[0].name}
                                 />
                             </Link>
@@ -68,7 +68,7 @@ export default function projects({headerMenus, ProjectsCategory, projects, proje
                 }
             </Container>
         </div>
-        <Footer contactContent={contactContent} />
+        <Footer contactContent={contactContent} menuItems={menuItems} />
         </>
     )
 }
@@ -81,7 +81,7 @@ export async function getStaticProps(context) {
     })
     return {
         props: {
-            headerMenus:data?.menuItems?.edges,
+            menuItems:data?.menuItems?.edges,
             ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
             projects:data?.projects?.nodes,
             projectsContent:data?.Content?.content,

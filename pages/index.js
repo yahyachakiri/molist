@@ -14,16 +14,17 @@ import { GET_CONTACT } from "../queries/get-contact";
 import { GET_HOME } from "../queries/get-home";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_PROJECTS } from "../queries/get-projects";
+import { GET_SERVICES } from "../queries/get-services";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, partnersContent, contactContent, projectsItems}) {
+export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems}) {
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(true);
   const [widthBar, setWidthBar] = useState(`30%`);
   const [paragArray, setParagArray] = useState([]);
-  console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
+  // console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
   // console.log(projectsItems[0].categories.nodes.name)
   const onProjectClickRight = () => {
     if (projectsItems.length > countProject + 2) {
@@ -96,7 +97,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
   
   return (
     <div>
-      <Header />
+      <Header menuItems={menuItems} />
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
       <div loading="lazy" style={{backgroundImage: `url(${homeContent.split('src="')[1].split('"')[0]})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
@@ -118,14 +119,14 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
               <p className=" text-[30px] font-black">
-                <span className="text-[72px]">0{count}</span>/0{Math.ceil(paragArray.length/3)}
+                <span className="text-[72px]">0{count}</span>/0{Math.ceil(servicesItems.length/3)}
               </p>
               <div className="h-[3px] w-[180px] bg-[#C2C2C2] mb-8 relative">
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
               </div>
             </div>
             <div className="flex sm:gap-[30px] gap-[15px]">
-              {
+              {/* {
                 paragArray.slice((count - 1)*3, 3 * count).map(item => {
                   return (
                     <div key={item.title} className="font-medium group">
@@ -142,6 +143,27 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
                         height="300"
                       />
                     </div>
+                  )
+                })
+              } */}
+              {
+                servicesItems.slice((count - 1)*3, 3 * count).map(item => {
+                  return (
+                    <Link href={`/services/${item?.id}`} key={item.title} className="font-medium group">
+                      <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                      <p className="mb-3 group-hover:text-main transition duration-300 w-[150px] max-h-[48px] overflow-hidden">
+                        {
+                          item?.title
+                        }
+                      </p>
+                      <img
+                        src={item?.featuredImage?.node?.sourceUrl}
+                        alt=""
+                        width="200"
+                        height="300"
+                        className="h-[300px] w-[200px] object-cover object-center"
+                      />
+                    </Link>
                   )
                 })
               }
@@ -196,7 +218,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
         </Container>
       </div>
       <Info homeContent={homeContent} />
-      <Services homeContent={homeContent} />
+      <Services homeContent={homeContent} servicesItems={servicesItems} servicesCategories={servicesCategories} />
       <div className="flex relative flex-col lg:flex-row">
         <div className="absolute left-[5%] top-1/2 translate-y-[-50%] z-10">
           <Arrow left onClickAction={onProjectClickLeft} />
@@ -349,7 +371,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
           </div> */}
         </ContainerSecond>
       </div>
-      <Footer contactContent={contactContent} />
+      <Footer contactContent={contactContent} menuItems={menuItems} />
     </div>
   );
 }
@@ -364,12 +386,17 @@ export async function getStaticProps(context) {
   const dataProjects = await client.query({
     query: GET_PROJECTS
   });
+  const dataServices = await client.query({
+    query: GET_SERVICES
+  });
   return {
     props: {
-      headerMenus:data?.menuItems?.edges,
+      menuItems:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
       partnersContent: data?.Partners?.content,
       projectsItems:dataProjects?.data?.projects?.nodes,
+      servicesItems:dataServices?.data?.services?.nodes,
+      servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
       contactContent:dataContact?.data?.Contact?.content,
     },
     revalidate: 1

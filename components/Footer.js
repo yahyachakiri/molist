@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import { classValue, loopClassValue } from '../util/classValue';
 import { Container } from './Container'
 
-export const Footer = ({headerMenus, contactContent}) => {
+export const Footer = ({menuItems, contactContent}) => {
     const [menu, setMenu] = useState(false);
     return (
         <footer className='bg-black py-20'>
@@ -14,7 +14,7 @@ export const Footer = ({headerMenus, contactContent}) => {
                 <div>
                     <p>Copyright &copy; {new Date().getFullYear()} Chiar. All Rights Reversed.</p>
                 </div>
-                <div className='flex flex-col gap-2'>
+                <div className='flex flex-col gap-2 max-w-[250px]'>
                     <p>{classValue(contactContent,'adress-main')}</p>
                     {
                         loopClassValue(contactContent, 'info').map(item => {
@@ -31,7 +31,7 @@ export const Footer = ({headerMenus, contactContent}) => {
                     <li><Link href='/about' className='transition duration-300 hover:text-mainSecond'>About</Link></li>
                     <li><Link href='/contact' className='transition duration-300 hover:text-mainSecond'>Contact</Link></li> */}
                     {
-                        headerMenus?.map(item => {
+                        menuItems?.map(item => {
                             return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
                         })
                     }

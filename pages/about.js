@@ -12,9 +12,10 @@ import { TeamMember } from "../components/TeamMember";
 import { GET_ABOUT } from "../queries/get-about";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
+import { GET_SERVICES } from "../queries/get-services";
 import { imgValue } from "../util/classValue";
 
-export default function about({headerMenus, partnersContent, homeContent, aboutContent, contactContent}) {
+export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -26,10 +27,10 @@ export default function about({headerMenus, partnersContent, homeContent, aboutC
     }
     return (
         <div>
-        <Header headerMenus={headerMenus} />
+        <Header menuItems={menuItems} />
         <ArticleHeader image={imgValue(aboutContent, 'banner')} title='About us' />
         <Info homeContent={homeContent} />
-        <Services about homeContent={homeContent} />
+        <Services homeContent={homeContent} servicesItems={servicesItems} servicesCategories={servicesCategories} />
         <ContainerSecond className="bg-white pt-[50px]">
             <hr className="w-28 bg-main mb-8 h-0.5 w-40" />
             <p className="uppercase font-teko text-2xl font-medium leading-none">
@@ -111,7 +112,7 @@ export default function about({headerMenus, partnersContent, homeContent, aboutC
             </Container>
             <Partners partnersContent={partnersContent} />
         </div>
-        <Footer contactContent={contactContent} />
+        <Footer contactContent={contactContent} menuItems={menuItems} />
         </div>
     );
 }
@@ -123,13 +124,18 @@ export async function getStaticProps(context) {
     const dataContact = await client.query({
         query: GET_CONTACT
       });
+      const dataServices = await client.query({
+        query: GET_SERVICES
+      });
     return {
         props: {
-            headerMenus:data?.menuItems?.edges,
+            menuItems:data?.menuItems?.edges,
             homeContent:data?.Home?.content,
             aboutContent:data?.About?.content,
             partnersContent: data?.Partners?.content,
-            contactContent:dataContact?.data?.Contact?.content
+            servicesItems:dataServices?.data?.services?.nodes,
+            servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
+            contactContent:dataContact?.data?.Contact?.content,
         },
         revalidate: 1
     }

@@ -142,3 +142,9 @@ a {
 }
 .font-teko {font-family: 'Bodoni Moda', serif;} 
 .font-bodoni {font-family: 'Teko', sans-serif;}
+.services h1, .services h2, .services h3, .services h4, .services h5, .services h6 {
+  font-size: 48px;
+  font-family: 'Teko';
+  font-weight: 600;
+  margin-block: 20px;
+}

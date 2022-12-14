@@ -9,7 +9,7 @@ import { GET_CONTACT } from '../queries/get-contact';
 import { GET_MENU } from '../queries/get-menu';
 import { classValue, imgValue, loopClassValue } from "../util/classValue";
 
-export default function contact({headerMenus, contactContent}) {
+export default function contact({menuItems, contactContent}) {
     const [map, setMap] = useState(false);
     const location=contactContent?.split('href="')[1]?.split('"')[0];
     useEffect(() => {
@@ -17,9 +17,10 @@ export default function contact({headerMenus, contactContent}) {
     }, []);
     return (
         <div>
-            <Header headerMenus={headerMenus} />
+            <Header menuItems={menuItems} />
             <ArticleHeader title='contact' image={imgValue(contactContent,'banner')} white />
-            <div className='w-full h-[900px] m-laptop:h-[1460px]'>
+            {/* <div className='w-full h-[900px] m-laptop:h-[1460px]'> */}
+            <div className='w-full min-h-[500px]'>
             {
                 map &&
                 // <iframe className='w-full h-[900px] m-laptop:h-[1460px]' scrolling="no" marginHeight="0" marginWidth="0" src={'https://maps.google.com/maps?width=100%25&amp;height=1460&amp;hl=en&amp;q=%C4%B0ncirtepe,%20A%C5%9F%C4%B1k%20Mahsuni%20%C5%9Eerif%20Cd.%2011%20A,%2034538%20Beylikd%C3%BCz%C3%BC%20Osb/Esenyurt/%C4%B0stanbul,%20Turquie+(My%20Business%20Name)&amp;t=&amp;z=14&amp;ie=UTF8&amp;iwloc=B&amp;output=embed' } width="100%" height="1460" frameBorder="0"><a href="https://www.maps.ie/distance-area-calculator.html">measure acres/hectares on map</a></iframe>
@@ -60,7 +61,7 @@ export default function contact({headerMenus, contactContent}) {
                     </form>
                 </Container>
             </div>
-            <Footer contactContent={contactContent} />
+            <Footer contactContent={contactContent} menuItems={menuItems} />
         </div>
     )
 }
@@ -71,7 +72,7 @@ export async function getStaticProps(context) {
     });
     return {
         props: {
-            headerMenus:data?.menuItems?.edges,
+            menuItems:data?.menuItems?.edges,
             contactContent:data?.Contact?.content
         },
         revalidate: 1
