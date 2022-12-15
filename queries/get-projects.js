@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_PROJECTS = gql`
 query NewQuery {
-    ProjectsCategory: categories(where: {name: "projects"}) {
+    ProjectsCategory: categories(where: {slug: "projects"}) {
       nodes {
         children {
           nodes {
