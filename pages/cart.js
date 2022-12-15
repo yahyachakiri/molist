@@ -70,24 +70,24 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                     itemsGrouped[0]?.length > 0 && itemsGrouped[0] && itemsGrouped[0][0]?.length > 0 ? itemsGrouped.map(item => {
                         // return item[0] + " " + item.length + " " 
                         return (
-                            <div key={itemsGrouped.indexOf(item)} className='flex items-center gap-4 mb-6'>
-                                <Link href={`/shop/${item[0]}`}><img src={productsInfo?.filter(e => e.id === item[0])[0]?.image?.sourceUrl} className="transition duration-300 hover:opacity-90 object-cover object-center w-[150px] h-[150px]" width="150" height="150" alt="" /></Link>
-                                <Link href={`/shop/${item[0]}`}><p className="font-semibold text-xl w-[300px]">{productsInfo?.filter(e => e.id === item[0])[0]?.name}</p></Link>
-                                <div className="flex items-center gap-2">
+                            <div key={itemsGrouped.indexOf(item)} className='flex items-center flex-wrap gap-4 mb-6'>
+                                <div className="flex items-center flex-wrap gap-4">
+                                <Link href={`/shop/${item[0]}`}><img src={productsInfo?.filter(e => e.id === item[0])[0]?.image?.sourceUrl} className="transition duration-300 hover:opacity-90 object-cover object-center lg:w-[150px] lg:h-[150px] w-[100px] h-[100px]" width="150" height="150" alt="" /></Link>
+                                <div>
+                                <Link href={`/shop/${item[0]}`}><p className="font-helveticaneue-medium-extended text-xl sm:w-[300px] w-[200px]">{productsInfo?.filter(e => e.id === item[0])[0]?.name}</p></Link>
+                                <div className="flex items-center gap-2 mt-4">
                                     <button onClick={() => {
                                         itemsGrouped[itemsGrouped.indexOf(item)].pop();
                                         setItems(itemsGrouped.flat())
-                                    }} className="p-2 bg-darkBg hover:bg-mainSecond rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" className="w-4 h-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
-                                        </svg>
+                                    }} className="group">
+                                        <svg className="group-hover:fill-mainSecond fill-darkBg"  xmlns="http://www.w3.org/2000/svg" width="18" height="18" data-name="Layer 1" viewBox="0 0 24 24"><path d="M0 11h24v2H0z"/></svg>
                                     </button>
-                                    <p className="font-semibold text-xl">{item.length}</p>
-                                    <button onClick={() => setItems([...items, item[0]])} className="p-2 bg-darkBg hover:bg-mainSecond rounded-full">
-                                        <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="#fff" className="w-4 h-4">
-                                            <path strokeLinecap="round" strokeLinejoin="round" d="M12 6v12m6-6H6" />
-                                        </svg>
+                                    <p className="font-helveticaneue-medium-extended text-xl">{item.length}</p>
+                                    <button onClick={() => setItems([...items, item[0]])} className="group">
+                                        <svg className="group-hover:fill-mainSecond fill-darkBg" xmlns="http://www.w3.org/2000/svg" width="18" height="18" viewBox="0 0 24 24"><path d="M24 11H13V0h-2v11H0v2h11v11h2V13h11v-2z" data-name="01 align center"/></svg>
                                     </button>
+                                </div>
+                                </div>
                                 </div>
                                 <button onClick={() => {
                                     setItems(itemsGrouped.flat().filter(e => e !== item[0]));
@@ -120,9 +120,12 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                             <input type="text" placeholder='Email' className='py-4 w-full text-darkBg contact:w-[300px] placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
                         </div>
                         <textarea rows="7" className='mt-11 block w-full text-darkBg placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' placeholder='Additional Information (Optional)' />
-                        <div className="flex gap-2 items-center mt-11 cursor-pointer w-fit group">
-                            <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase group-hover:text-black' value="Send" />
-                            <svg className="group-hover:fill-black fill-[#F3B03C]" xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                        <div className="flex justify-between items-end">
+                            <div className="flex gap-2 items-center mt-11 cursor-pointer w-fit group">
+                                <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase group-hover:text-black' value="Send" />
+                                <svg className="group-hover:fill-black fill-[#F3B03C]" xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                            </div>
+                            <button onClick={() => setItems([])} className="font-bold hover:text-mainThird text-black">CLEAR ALL</button>
                         </div>
                     </form>
                 }
