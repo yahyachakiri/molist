@@ -20,7 +20,6 @@ export const Header = ({ cart, items, menuItems}) => {
             setItemsCart(items);
         }
     }, [items])
-    console.log(menuItems)
     return (
         <div className='py-10 fixed w-full z-50 bg-gradient-to-b from-black font-helveticaneue-black'>
             <Container className='flex items-center justify-between px-4'>
@@ -66,7 +65,7 @@ export const Header = ({ cart, items, menuItems}) => {
                             {
                                 menuItems?.map(item => {
                                     // return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
-                                    return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.url} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label}</Link></li>
+                                    return <li key={item?.node?.url}><Link onClick={() => setMenu(false)} href={item?.node?.url} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label}</Link></li>
                                 })
                             }
                         </ul>

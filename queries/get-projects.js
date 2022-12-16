@@ -35,6 +35,7 @@ query NewQuery {
         node {
           label
           path
+          url
         }
       }
     }

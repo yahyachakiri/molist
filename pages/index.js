@@ -37,6 +37,14 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     }
   }
   useEffect(() => {
+    if (count == Math.ceil(paragArray.length/3) - 1) {
+      setRightDisable(true);
+    }
+    if (count >= Math.ceil(paragArray.length/3) && count > 1) {
+      setLeftDisable(true);
+    }
+  }, [])
+  useEffect(() => {
     // setWidthBar((count/3)*100)
     setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/3))*100)}%`)
   }, [count])
