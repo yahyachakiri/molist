@@ -14,8 +14,6 @@ import { classValue } from '../../util/classValue'
 
 export default function services({menuItems, contactContent, categories, serviceImg, servicesInfo}) {
     const [serviceCategory,  setServiceCategory] = useState('all');
-    console.log(servicesInfo);
-    console.log(categories);
     return (
         <>
         <Header menuItems={menuItems} />

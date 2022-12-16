@@ -17,7 +17,6 @@ import { GET_TEAM } from "../queries/get-team";
 import { imgValue } from "../util/classValue";
 
 export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData}) {
-    console.log(teamData);
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({

@@ -87,7 +87,6 @@ export async function getStaticPaths() {
       pathsData.push( {params: {id: product?.id}} );
     }
   })
-  console.log(pathsData)
 
 	return {
 		paths: [],
