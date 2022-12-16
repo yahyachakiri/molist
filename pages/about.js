@@ -13,9 +13,11 @@ import { GET_ABOUT } from "../queries/get-about";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_SERVICES } from "../queries/get-services";
+import { GET_TEAM } from "../queries/get-team";
 import { imgValue } from "../util/classValue";
 
-export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories}) {
+export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData}) {
+    console.log(teamData);
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -41,14 +43,27 @@ export default function about({menuItems, partnersContent, homeContent, aboutCon
         <div className="py-[50px] bg-white">
             <Container className="flex flex-wrap justify-center gap-10 pb-[50px] bg-white'">
             {
-                members.map(member => {
+                // members.map(member => {
+                //     return (
+                //         <TeamMember
+                //             key={members?.indexOf(member.name)}
+                //             image={member.img}
+                //             name={member.name}
+                //             position={member.position}
+                //             description={member.description}
+                //         />
+                //     )
+                // })
+            }
+            {
+                teamData.map(member => {
                     return (
-                        <TeamMember
-                            key={members?.indexOf(member.name)}
-                            image={member.img}
-                            name={member.name}
-                            position={member.position}
-                            description={member.description}
+                        <TeamMember 
+                            key={teamData?.indexOf(member)}
+                            image={member?.featuredImage?.node?.sourceUrl}
+                            name={member.team?.fullName}
+                            position={member.team?.title}
+                            description={member.content}
                         />
                     )
                 })
@@ -127,6 +142,9 @@ export async function getStaticProps(context) {
       const dataServices = await client.query({
         query: GET_SERVICES
       });
+      const dataTeam = await client.query({
+        query: GET_TEAM
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
@@ -136,6 +154,7 @@ export async function getStaticProps(context) {
             servicesItems:dataServices?.data?.services?.nodes,
             servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
             contactContent:dataContact?.data?.Contact?.content,
+            teamData:dataTeam?.data?.teams?.nodes,
         },
         revalidate: 1
     }

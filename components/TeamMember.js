@@ -10,9 +10,10 @@ export const TeamMember = ({ image, position, name, description }) => {
             <h1 className="font-black text-2xl uppercase font-helveticaneue-black">{name}</h1>
         </div>
         <div className="absolute top-0 left-0 p-4 opacity-0 transition duration-300 group-hover:opacity-100">
-            <p className="text-white mb-3">
+            {/* <p className="text-white mb-3">
             {description}
-            </p>
+            </p> */}
+            <div className="text-white mb-3" dangerouslySetInnerHTML={{__html: description}} />
             <p className="text-mainSecond uppercase text-xs font-medium">{position}</p>
             <h1 className="font-bold text-2xl uppercase font-helveticaneue-black">{name}</h1>
         </div>

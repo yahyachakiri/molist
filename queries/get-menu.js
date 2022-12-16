@@ -6,7 +6,7 @@ query NewQuery {
     edges {
       node {
         label
-        path
+        url
       }
     }
   }

@@ -15,6 +15,7 @@ query NewQuery {
       categories {
         nodes {
           id
+          name
         }
       }
     }
@@ -26,7 +27,7 @@ query NewQuery {
       }
     }
   }
-      categories(where: {name: "services"}) {
+      categories(where: {slug: "services"}) {
         nodes {
           children {
             nodes {
@@ -41,7 +42,7 @@ query NewQuery {
         edges {
           node {
             label
-            path
+            url
           }
         }
     }

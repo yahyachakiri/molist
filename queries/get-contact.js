@@ -9,7 +9,7 @@ export const GET_CONTACT = gql`
       edges {
         node {
           label
-          path
+          url
         }
       }
     }
