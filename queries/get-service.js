@@ -16,7 +16,7 @@ query NewQuery($id: ID!) {
       edges {
         node {
           label
-          url
+          path
         }
       }
     }

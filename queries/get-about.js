@@ -7,6 +7,11 @@ export const GET_ABOUT = gql`
     }
     About: pageBy(uri: "about") {
       content
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
     }
     Partners: pageBy(uri: "hash-our-partners") {
       content

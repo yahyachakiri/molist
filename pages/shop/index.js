@@ -11,7 +11,7 @@ import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_PRODUCTS } from '../../queries/get-products'
 import { imgValue } from '../../util/classValue'
 
-export default function Shop({menuItems, categories, shopContent, products, contactContent}) {
+export default function Shop({menuItems, categories, shopContent, products, contactContent, shopImg}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     const [cart, setCart] = useState("");
     const [cartItems, setCartItems] = useState([]);
@@ -19,7 +19,7 @@ export default function Shop({menuItems, categories, shopContent, products, cont
         <>
         <Header menuItems={menuItems} cart={cart} />
         <div className='bg-white pb-6'>
-            <ArticleHeader title='Shop' image={imgValue(shopContent, 'banner')} white />
+            <ArticleHeader title='Shop' image={shopImg} white />
             <ContainerSecond>
             <div className="flex gap-12 flex-wrap my-14">
                 {
@@ -78,6 +78,7 @@ export async function getStaticProps(context) {
             products:data?.products?.nodes,
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
+            shopImg:data?.Shop?.featuredImage?.node?.sourceUrl,
             contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1

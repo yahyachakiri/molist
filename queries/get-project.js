@@ -17,7 +17,7 @@ query NewQuery($slug: String) {
       edges {
         node {
           label
-          url
+          path
         }
       }
     }

@@ -4,6 +4,11 @@ export const GET_PRODUCTS = gql`
 query NewQuery {
     Shop: pageBy(uri: "shop") {
       content
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
     }
     Categories: productCategories {
       nodes {

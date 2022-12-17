@@ -17,7 +17,7 @@ import { GET_PROJECTS } from "../queries/get-projects";
 import { GET_SERVICES } from "../queries/get-services";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems}) {
+export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg}) {
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
@@ -107,7 +107,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     <div>
       <Header menuItems={menuItems} />
       {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
-      <div loading="lazy" style={{backgroundImage: `url(${homeContent.split('src="')[1].split('"')[0]})`}} className={` bg-no-repeat bg-cover bg-center`}>
+      <div loading="lazy" style={{backgroundImage: `url(${homeImg})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
           <div className="px-[70px]">
             <h1 className="uppercase text-4xl sm:text-6xl mt-12 font-helveticaneue-black">
@@ -401,6 +401,7 @@ export async function getStaticProps(context) {
     props: {
       menuItems:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
+      homeImg:data?.Home?.featuredImage?.node?.sourceUrl,
       partnersContent: data?.Partners?.content,
       projectsItems:dataProjects?.data?.projects?.nodes,
       servicesItems:dataServices?.data?.services?.nodes,

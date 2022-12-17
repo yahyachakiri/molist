@@ -4,6 +4,11 @@ export const GET_CONTACT = gql`
   query NewQuery {
     Contact: pageBy(uri: "contact") {
       content
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
     }
     menuItems {
       edges {

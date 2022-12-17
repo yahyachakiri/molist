@@ -7,11 +7,12 @@ import { ContainerSecond } from "../components/ContainerSecond";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { SEND_EMAIL } from "../queries/email";
+import { GET_CART } from "../queries/get-cart";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_PRODUCTS } from "../queries/get-products";
 
-export default function Cart({menuItems, productsInfo, categories, contactContent}) {
+export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg}) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("cart")?.split(",")) {
@@ -59,7 +60,7 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
   return (
     <>
         <Header menuItems={menuItems} items={items} />
-        <ArticleHeader title='Cart' image='./images/about.png' small />
+        <ArticleHeader title='Cart' image={cartImg} small />
         <div className={`pb-[100px] ${itemsGrouped[0]?.length === 0 && 'flex items-center justify-center'}`}>
             <ContainerSecond>
                 {
@@ -142,13 +143,17 @@ export async function getStaticProps(context) {
     const dataContact = await client.query({
         query: GET_CONTACT
       });
+    const cartImg = await client.query({
+        query: GET_CART
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
             productsInfo:data?.products?.nodes,
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
-            contactContent:dataContact?.data?.Contact?.content
+            contactContent:dataContact?.data?.Contact?.content,
+            cartImg:cartImg?.data?.Cart?.featuredImage?.node?.sourceUrl,
         },
         revalidate: 1
     }

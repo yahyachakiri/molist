@@ -42,7 +42,7 @@ query NewQuery {
         edges {
           node {
             label
-            url
+            path
           }
         }
     }

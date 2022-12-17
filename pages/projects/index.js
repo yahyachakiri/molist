@@ -13,13 +13,13 @@ import { GET_MENU } from '../../queries/get-menu'
 import { GET_PROJECTS } from '../../queries/get-projects'
 import { classValue, imgValue } from '../../util/classValue'
 
-export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent}) {
+export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent, projectsImg}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     return (
         <>
         <Header menuItems={menuItems} />
         <div className='bg-white pb-6'>
-            <ArticleHeader title='projects' image={imgValue(projectsContent, 'banner')} white />
+            <ArticleHeader title='projects' image={projectsImg} white />
             <ContainerSecond className='py-[60px]'>
             <hr className="w-35 bg-main mb-2 h-0.5 w-40" />
             <h1 className="uppercase text-4xl sm:text-5xl font-helveticaneue-black">
@@ -85,6 +85,7 @@ export async function getStaticProps(context) {
             ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
             projects:data?.projects?.nodes,
             projectsContent:data?.Content?.content,
+            projectsImg:data?.Content?.featuredImage?.node?.sourceUrl,
             contactContent:dataContact?.data?.Contact?.content
         },
         revalidate: 1

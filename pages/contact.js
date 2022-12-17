@@ -9,7 +9,7 @@ import { GET_CONTACT } from '../queries/get-contact';
 import { GET_MENU } from '../queries/get-menu';
 import { classValue, imgValue, loopClassValue } from "../util/classValue";
 
-export default function contact({menuItems, contactContent}) {
+export default function contact({menuItems, contactContent, contactImg}) {
     const [map, setMap] = useState(false);
     const location=contactContent?.split('href="')[1]?.split('"')[0];
     useEffect(() => {
@@ -18,7 +18,7 @@ export default function contact({menuItems, contactContent}) {
     return (
         <div>
             <Header menuItems={menuItems} />
-            <ArticleHeader title='contact' image={imgValue(contactContent,'banner')} white />
+            <ArticleHeader title='contact' image={contactImg} white />
             {/* <div className='w-full h-[900px] m-laptop:h-[1460px]'> */}
             <div className='w-full min-h-[500px]'>
             {
@@ -73,7 +73,8 @@ export async function getStaticProps(context) {
     return {
         props: {
             menuItems:data?.menuItems?.edges,
-            contactContent:data?.Contact?.content
+            contactContent:data?.Contact?.content,
+            contactImg:data?.Contact?.featuredImage?.node?.sourceUrl,
         },
         revalidate: 1
     }

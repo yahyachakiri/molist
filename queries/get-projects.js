@@ -41,6 +41,11 @@ query NewQuery {
     }
     Content:pageBy(uri: "projects") {
       content
+      featuredImage {
+        node {
+          sourceUrl
+        }
+      }
     }
   }
 `;

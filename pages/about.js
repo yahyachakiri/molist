@@ -16,7 +16,7 @@ import { GET_SERVICES } from "../queries/get-services";
 import { GET_TEAM } from "../queries/get-team";
 import { imgValue } from "../util/classValue";
 
-export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData}) {
+export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -29,7 +29,7 @@ export default function about({menuItems, partnersContent, homeContent, aboutCon
     return (
         <div>
         <Header menuItems={menuItems} />
-        <ArticleHeader image={imgValue(aboutContent, 'banner')} title='About us' />
+        <ArticleHeader image={aboutImg} title='About us' />
         <Info homeContent={homeContent} />
         <Services homeContent={homeContent} servicesItems={servicesItems} servicesCategories={servicesCategories} />
         <ContainerSecond className="bg-white pt-[50px]">
@@ -149,6 +149,7 @@ export async function getStaticProps(context) {
             menuItems:data?.menuItems?.edges,
             homeContent:data?.Home?.content,
             aboutContent:data?.About?.content,
+            aboutImg:data?.About?.featuredImage?.node?.sourceUrl,
             partnersContent: data?.Partners?.content,
             servicesItems:dataServices?.data?.services?.nodes,
             servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,

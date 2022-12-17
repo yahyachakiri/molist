@@ -4,6 +4,11 @@ export const GET_HOME = gql`
 query NewQuery {
   Home:pageBy(uri: "home-page") {
     content
+    featuredImage {
+      node {
+        sourceUrl
+      }
+    }
   }
   Partners:pageBy(uri: "hash-our-partners") {
     content
@@ -12,7 +17,7 @@ query NewQuery {
     edges {
       node {
         label
-        url
+        path
         url
       }
     }
