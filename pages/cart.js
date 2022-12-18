@@ -1,4 +1,4 @@
-import { useMutation } from "@apollo/client";
+import { useMutation, useQuery } from "@apollo/client";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "../apollo/client";
@@ -7,9 +7,11 @@ import { ContainerSecond } from "../components/ContainerSecond";
 import { Footer } from "../components/Footer";
 import { Header } from "../components/Header";
 import { SEND_EMAIL } from "../queries/email";
+import { SEND_EMAIL_RECEIPT } from "../queries/email-receipt";
 import { GET_CART } from "../queries/get-cart";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
+import { GET_PRODUCT } from "../queries/get-product";
 import { GET_PRODUCTS } from "../queries/get-products";
 
 export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg}) {
@@ -30,13 +32,10 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
         */
     },[]);
     useEffect(() => {
-        // console.log(items);
         if (items[0] !== "") {
             localStorage.setItem("cart", items);
         }
     }, [items])
-    // console.log(productsInfo)
-    // console.log(productsInfo.filter(e => e.id === "cHJvZHVjdDoxMzA0")[0].image.sourceUrl)
     function divide(array) {
         let allArrays = [];
         for (let i = 0; i < array.length; i++) {
@@ -49,13 +48,78 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
         array.shift(element)
         setItems(array);
     }
-    // let array = ["one", "one", "two", "one"];
-    // console.log(array)
-    // array.shift("one")
-    // console.log(array)
     let itemsGrouped = divide(items.sort());
-    let input;
-    const [addTodo, { data, loading, error }] = useMutation(SEND_EMAIL);
+    let name;
+    let email;
+    let message;
+    const [sendEmailFunc, sendEmailReturn] = useMutation(SEND_EMAIL);
+    const [sendEmailReceiptFunc, sendEmailReceiptReturn] = useMutation(SEND_EMAIL_RECEIPT);
+    if (sendEmailReturn.error) {
+        console.log(sendEmailReturn.error);
+    }
+    if (sendEmailReturn.data) {
+        console.log(sendEmailReturn.data);
+    }
+    if (sendEmailReceiptReturn.error) {
+        console.log(sendEmailReceiptReturn.error);
+    }
+    if (sendEmailReceiptReturn.data) {
+        console.log(sendEmailReceiptReturn.data);
+    }
+    let productProperties = [];
+    const getProduct = useQuery(GET_PRODUCTS);
+    let emailSend = "";
+    let emailReceipt = "";
+    const emailMessage = (client) => {
+        productProperties = [];
+        itemsGrouped.forEach(item => {
+            productProperties.push(
+                {
+                    name: getProduct.data?.products?.nodes.filter(e => e.id === item[0])[0].name,
+                    image: getProduct.data?.products?.nodes.filter(e => e.id === item[0])[0].image?.sourceUrl,
+                    quantity: item.length
+                })
+        });
+        console.log(productProperties);
+        let productsDiv = [];
+        productProperties.forEach(property => {
+            productsDiv.push(
+                `<tr>
+                    <td><img src="${property.image}" alt="" height="100" width="100" style="object-fit: cover;"></td>
+                    <td><p><b>${property.name}</b> x ${property.quantity}</p></td>
+                </tr>`
+            )
+        }
+            )
+        emailSend = `
+            <div style="color: #000;">
+                <p style="color: #000;">Hello ${client.name},</p>
+                <p style="color: #000;">We have received your request and we will send you a quote soon!</p>
+                <table cellspacing="3" style="color: #000;">
+                ${productsDiv.join("\n")}
+                </table>
+                
+                <br>
+                <br>
+                <p style="color: #000;">Thank you!</p>
+                <p style="color: #FBAD02;">- Molist team</p>
+            </div>
+            `;
+        emailReceipt = `
+            <div style="color: #000;">
+                <p style="color: #000;">Request from: ${client.name},</p>
+                <p style="color: #000;">Email: ${client.email},</p>
+                <p style="color: #000;">${client.message && `Message: ${client.message}`}</p>
+                <table cellspacing="3" style="color: #000;">
+                ${productsDiv.join("\n")}
+                </table>
+            </div>
+            `;
+        
+    }
+    const [sendRequest, setSendRequest] = useState(false);
+    const [sendRequestMsg, setSendRequestMsg] = useState("");
+
 
   return (
     <>
@@ -69,7 +133,6 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                 }
                 {
                     itemsGrouped[0]?.length > 0 && itemsGrouped[0] && itemsGrouped[0][0]?.length > 0 ? itemsGrouped.map(item => {
-                        // return item[0] + " " + item.length + " " 
                         return (
                             <div key={itemsGrouped.indexOf(item)} className='flex items-center flex-wrap gap-4 mb-6'>
                                 <div className="flex items-center flex-wrap gap-4">
@@ -110,21 +173,30 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                     <form action="" className='text-paragraph'
                         onSubmit={e => {
                             e.preventDefault();
-                            addTodo({ variables: { type: input.value } }).then(e => console.log("success")
-                            ).catch(e => console.log("fail"));
-                            input.value = '';
-                        }}
+                            if (email.value !== "" && name.value !== "") {
+                                setSendRequestMsg("Loading...");
+                                emailMessage({name: name.value, email: email.value, message: message.value});
+                                sendEmailReceiptFunc({ variables: { body: emailReceipt } });
+                                sendEmailFunc({ variables: { email: email.value, body: emailSend } }).then(e => {setSendRequest(true); if (e.data?.sendEmail?.sent) setSendRequestMsg("Request Send"); else setSendRequestMsg("Request Not Send Try Again")})
+                                .catch(e => {setSendRequest(true); setSendRequestMsg("There is a problem try again later")});
+                            } else {
+                                setSendRequest(true); 
+                                setSendRequestMsg("Please enter your name and a valid email")
+                            }
+                        }
+                        }
                     >
                         <h2 className="font-teko font-medium text-2xl uppercase text-black">Request a quote</h2>
                         <div className="flex gap-16 flex-wrap max-w-[671px] mt-8">
-                            <input ref={node => { input = node;}} type="text" placeholder='Name' className='py-4 w-full text-darkBg contact:w-[300px] placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
-                            <input type="text" placeholder='Email' className='py-4 w-full text-darkBg contact:w-[300px] placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
+                            <input ref={node => { name = node;}} type="text" placeholder='Name' className='py-4 w-full text-darkBg contact:w-[300px] placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
+                            <input ref={node => { email = node;}} type="text" placeholder='Email' className='py-4 w-full text-darkBg contact:w-[300px] placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' />
                         </div>
-                        <textarea rows="7" className='mt-11 block w-full text-darkBg placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' placeholder='Additional Information (Optional)' />
+                        <textarea ref={node => { message = node;}} rows="7" className='mt-11 block w-full text-darkBg placeholder-paragraph border-solid border-b-[2px] border-paragraph focus:border-main' placeholder='Additional Information (Optional)' />
                         <div className="flex justify-between items-end">
-                            <div className="flex gap-2 items-center mt-11 cursor-pointer w-fit group">
-                                <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase group-hover:text-black' value="Send" />
-                                <svg className="group-hover:fill-black fill-[#F3B03C]" xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                            <div className="flex gap-4 items-center mt-11 w-fit group">
+                                <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase hover:text-black' value="Send" />
+                                {/* <svg className="group-hover:fill-black fill-[#F3B03C]" xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg> */}
+                                {sendRequest && <p className="uppercase font-bold text-black">{sendRequestMsg}</p>}
                             </div>
                             <button onClick={() => setItems([])} className="font-bold hover:text-mainThird text-black">CLEAR ALL</button>
                         </div>
