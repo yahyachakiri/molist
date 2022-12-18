@@ -6,7 +6,7 @@ mutation SendEmail($body: String!) {
     sendEmail(
       input: {
         from: "order@molist.net",
-        to: "yahyachakiridev@gmail.com",
+        to: "order@molist.net",
         subject: "New request",
         body: $body,
         clientMutationId: "test"
