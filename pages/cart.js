@@ -177,11 +177,16 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                         onSubmit={e => {
                             e.preventDefault();
                             if (validEmail.test(email.value) && name.value !== "") {
+                                setSendRequest(true);
                                 setSendRequestMsg("Loading...");
                                 emailMessage({name: name.value, email: email.value, message: message.value});
-                                sendEmailReceiptFunc({ variables: { body: emailReceipt } });
-                                sendEmailFunc({ variables: { email: email.value, body: emailSend } }).then(e => {setSendRequest(true); if (e.data?.sendEmail?.sent) setSendRequestMsg("Request Sent"); else setSendRequestMsg("Request Not Sent Try Again")})
-                                .catch(e => {setSendRequest(true); setSendRequestMsg("There is a problem try again later")});
+                                sendEmailFunc({ variables: { email: email.value, body: emailSend } })
+                                .then(e => { 
+                                    if (e.data?.sendEmail?.sent) {
+                                        setSendRequestMsg("Request Sent");
+                                        sendEmailReceiptFunc({ variables: { body: emailReceipt }});
+                                    } else setSendRequestMsg("Request Not Sent Try Again")})
+                                .catch(e => {console.log(e);setSendRequestMsg("There is a problem try again later")});
                             } else {
                                 setSendRequest(true); 
                                 setSendRequestMsg("Please enter your name and a valid email")
