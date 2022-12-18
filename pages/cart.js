@@ -119,9 +119,12 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
     }
     const [sendRequest, setSendRequest] = useState(false);
     const [sendRequestMsg, setSendRequestMsg] = useState("");
+    const validEmail = new RegExp(
+        '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+    );
 
 
-  return (
+    return (
     <>
         <Header menuItems={menuItems} items={items} />
         <ArticleHeader title='Cart' image={cartImg} small />
@@ -173,7 +176,7 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                     <form action="" className='text-paragraph'
                         onSubmit={e => {
                             e.preventDefault();
-                            if (email.value !== "" && name.value !== "") {
+                            if (validEmail.test(email.value) && name.value !== "") {
                                 setSendRequestMsg("Loading...");
                                 emailMessage({name: name.value, email: email.value, message: message.value});
                                 sendEmailReceiptFunc({ variables: { body: emailReceipt } });
