@@ -8,9 +8,10 @@ import { Header } from '../../components/Header';
 import { GET_CONTACT } from '../../queries/get-contact';
 import { GET_PROJECT } from '../../queries/get-project';
 import { GET_PROJECTS } from '../../queries/get-projects';
+import { GET_SOCIALMEDIA } from '../../queries/social-media';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({menuItems, title, projectContent, contactContent, projectImage}) {
+export default function Page({menuItems, title, projectContent, contactContent, projectImage, dataSocialMedia}) {
   let propertyArray = [];
   for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
@@ -76,7 +77,7 @@ export default function Page({menuItems, title, projectContent, contactContent, 
         <ContainerSecond className='pt-32 sm:pt-52 pb-40 sm:pb-60 bg-white flex flex-wrap gap-12 flex items-center justify-center'>
           <p className='font-[Teko] font-medium text-xl'>Loading...</p>
         </ContainerSecond>
-        <Footer contactContent={contactContent} menuItems={menuItems} />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
     </>
 
 }
@@ -91,14 +92,18 @@ export async function getStaticProps({params}) {
     });
     const dataContact = await client.query({
       query: GET_CONTACT
-    })
+    });
+    const dataSocialMedia = await client.query({
+      query: GET_SOCIALMEDIA
+    });
   return {
       props: {
           menuItems:data?.menuItems?.edges,
           title: data?.Project?.title,
           projectContent: data?.Project?.content,
           projectImage: data?.Project?.featuredImage?.node?.sourceUrl,
-          contactContent:dataContact?.data?.Contact?.content
+          contactContent:dataContact?.data?.Contact?.content,
+          dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
       },
       revalidate: 1
   }

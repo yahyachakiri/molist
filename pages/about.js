@@ -14,9 +14,10 @@ import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_SERVICES } from "../queries/get-services";
 import { GET_TEAM } from "../queries/get-team";
+import { GET_SOCIALMEDIA } from "../queries/social-media";
 import { imgValue } from "../util/classValue";
 
-export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg}) {
+export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg, dataSocialMedia}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -126,7 +127,7 @@ export default function about({menuItems, partnersContent, homeContent, aboutCon
             </Container>
             <Partners partnersContent={partnersContent} />
         </div>
-        <Footer contactContent={contactContent} menuItems={menuItems} />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
         </div>
     );
 }
@@ -144,6 +145,9 @@ export async function getStaticProps(context) {
       const dataTeam = await client.query({
         query: GET_TEAM
       });
+      const dataSocialMedia = await client.query({
+        query: GET_SOCIALMEDIA
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
@@ -155,6 +159,7 @@ export async function getStaticProps(context) {
             servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
             contactContent:dataContact?.data?.Contact?.content,
             teamData:dataTeam?.data?.teams?.nodes,
+            dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1
     }

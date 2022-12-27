@@ -7,9 +7,10 @@ import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
 import { GET_CONTACT } from '../queries/get-contact';
 import { GET_MENU } from '../queries/get-menu';
+import { GET_SOCIALMEDIA } from '../queries/social-media';
 import { classValue, imgValue, loopClassValue } from "../util/classValue";
 
-export default function contact({menuItems, contactContent, contactImg}) {
+export default function contact({menuItems, contactContent, contactImg, dataSocialMedia}) {
     const [map, setMap] = useState(false);
     const location=contactContent?.split('href="')[1]?.split('"')[0];
     useEffect(() => {
@@ -61,7 +62,7 @@ export default function contact({menuItems, contactContent, contactImg}) {
                     </form>
                 </Container>
             </div>
-            <Footer contactContent={contactContent} menuItems={menuItems} />
+            <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
         </div>
     )
 }
@@ -70,11 +71,15 @@ export async function getStaticProps(context) {
     const {data, loading} = await client.query({
         query: GET_CONTACT
     });
+    const dataSocialMedia = await client.query({
+        query: GET_SOCIALMEDIA
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
             contactContent:data?.Contact?.content,
             contactImg:data?.Contact?.featuredImage?.node?.sourceUrl,
+            dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1
     }

@@ -9,9 +9,10 @@ import { Header } from '../../components/Header'
 import { Product } from '../../components/Product'
 import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_PRODUCTS } from '../../queries/get-products'
+import { GET_SOCIALMEDIA } from '../../queries/social-media'
 import { imgValue } from '../../util/classValue'
 
-export default function Shop({menuItems, categories, shopContent, products, contactContent, shopImg}) {
+export default function Shop({menuItems, categories, shopContent, products, contactContent, shopImg, dataSocialMedia}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     const [cart, setCart] = useState("");
     const [cartItems, setCartItems] = useState([]);
@@ -61,7 +62,7 @@ export default function Shop({menuItems, categories, shopContent, products, cont
                 }
             </Container>
         </div>
-        <Footer contactContent={contactContent} menuItems={menuItems} />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
         </>
     )
 }
@@ -72,6 +73,9 @@ export async function getStaticProps(context) {
     const dataContact = await client.query({
         query: GET_CONTACT
       });
+      const dataSocialMedia = await client.query({
+        query: GET_SOCIALMEDIA
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
@@ -79,7 +83,8 @@ export async function getStaticProps(context) {
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
             shopImg:data?.Shop?.featuredImage?.node?.sourceUrl,
-            contactContent:dataContact?.data?.Contact?.content
+            contactContent:dataContact?.data?.Contact?.content,
+            dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1
     }

@@ -10,9 +10,10 @@ import { Header } from '../../components/Header'
 import { Service } from '../../components/Service'
 import { GET_CONTACT } from '../../queries/get-contact'
 import { GET_SERVICES } from '../../queries/get-services'
+import { GET_SOCIALMEDIA } from '../../queries/social-media'
 import { classValue } from '../../util/classValue'
 
-export default function services({menuItems, contactContent, categories, serviceImg, servicesInfo}) {
+export default function services({menuItems, contactContent, categories, serviceImg, servicesInfo, dataSocialMedia}) {
     const [serviceCategory,  setServiceCategory] = useState('all');
     return (
         <>
@@ -57,7 +58,7 @@ export default function services({menuItems, contactContent, categories, service
                 }
             </Container>
         </div>
-        <Footer contactContent={contactContent} menuItems={menuItems} />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
         </>
     )
 }
@@ -67,7 +68,10 @@ export async function getStaticProps(context) {
     });
     const dataContact = await client.query({
         query: GET_CONTACT
-    })
+    });
+    const dataSocialMedia = await client.query({
+        query: GET_SOCIALMEDIA
+      });
     return {
         props: {
             categories:data?.categories?.nodes[0]?.children?.nodes,
@@ -75,6 +79,7 @@ export async function getStaticProps(context) {
             servicesInfo:data?.services?.nodes,
             serviceImg:data?.servicesImg?.featuredImage?.node?.sourceUrl,
             contactContent:dataContact?.data?.Contact?.content,
+            dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1
     }

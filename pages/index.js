@@ -15,15 +15,17 @@ import { GET_HOME } from "../queries/get-home";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_PROJECTS } from "../queries/get-projects";
 import { GET_SERVICES } from "../queries/get-services";
+import { GET_SOCIALMEDIA } from "../queries/social-media";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg}) {
+export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia}) {
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(true);
   const [widthBar, setWidthBar] = useState(`30%`);
   const [paragArray, setParagArray] = useState([]);
+  console.log(dataSocialMedia);
   // console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
   // console.log(projectsItems[0].categories.nodes.name)
   const onProjectClickRight = () => {
@@ -106,7 +108,6 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
   return (
     <div>
       <Header menuItems={menuItems} />
-      {/* <div style={{background: 'url("./images/main.png")'}} className='object-cover bg-bottom bg-no-repeat'> */}
       <div loading="lazy" style={{backgroundImage: `url(${homeImg})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
           <div className="px-[70px]">
@@ -118,11 +119,11 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
                 Imagination
               </span>
             </h1>
-            {/* <div className="h-[70px] w-[70px] bg-[#111111] relative mt-20 ml-[115px]">
-              <p className="uppercase font-medium font-teko absolute w-[75px] top-[50%] left-9 translate-y-[-50%]">
-                View Project
-              </p>
-            </div> */}
+          </div>
+          <div className="absolute left-6 bottom-8 flex flex-col gap-4">
+            <Link href={dataSocialMedia?.facebook ? dataSocialMedia?.facebook : ""} className="group"><i class="fa-brands fa-facebook-f group-hover:text-mainSecond text-xl"></i></Link>
+            <Link href={dataSocialMedia?.intagram ? dataSocialMedia?.intagram : ""} className="group"><i class="fa-brands fa-instagram group-hover:text-mainSecond text-xl"></i></Link>
+            <Link href={dataSocialMedia?.linkedin ? dataSocialMedia?.linkedin : ""} className="group"><i class="fa-brands fa-linkedin-in group-hover:text-mainSecond text-xl"></i></Link>
           </div>
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
@@ -134,26 +135,6 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
               </div>
             </div>
             <div className="flex sm:gap-[30px] gap-[15px]">
-              {/* {
-                paragArray.slice((count - 1)*3, 3 * count).map(item => {
-                  return (
-                    <div key={item.title} className="font-medium group">
-                      <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                      <p className="mb-3 group-hover:text-main transition duration-300 w-[90px] max-h-[48px] overflow-hidden">
-                        {
-                          item.title
-                        }
-                      </p>
-                      <img
-                        src={item.image}
-                        alt=""
-                        width="200"
-                        height="300"
-                      />
-                    </div>
-                  )
-                })
-              } */}
               {
                 servicesItems.slice((count - 1)*3, 3 * count).map(item => {
                   return (
@@ -175,48 +156,6 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
                   )
                 })
               }
-              {/* <div className="font-medium group">
-                <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
-                  {
-                    paragArray[0]
-                  }
-                </p>
-                <img
-                  src={homeContent.split('sub-main')[1].split('src="')[1].split('"')[0]}
-                  alt=""
-                  width="200"
-                  height="300"
-                />
-              </div>
-              <div className="font-medium group">
-                <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
-                  {
-                    homeContent.split('<p class="parag">')[2].split('</p>')[0]
-                  }
-                </p>
-                <img
-                  src="./images/main-2.png"
-                  alt=""
-                  width="200"
-                  height="300"
-                />
-              </div>
-              <div className="font-medium group">
-                <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
-                <p className="mb-3 group-hover:text-main transition duration-300 w-[90px]">
-                  {
-                    homeContent.split('<p class="parag">')[3].split('</p>')[0]
-                  }
-                </p>
-                <img
-                  src="./images/main-3.png"
-                  alt=""
-                  width="200"
-                  height="300"
-                />
-              </div> */}
             </div>
             <div className="absolute bottom-0 right-12 flex">
               <Arrow left onClickAction={onClickLeft} disabled={leftDisable} />
@@ -253,32 +192,6 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
             )
           })
         }
-        {/* <div className="lg:w-1/2 h-[700px] relative group">
-          <img
-            src="./images/project-1.png"
-            className="absolute w-full h-full object-cover"
-            alt=""
-          />
-          <div className="absolute bottom-0 left-0 px-14 py-10 bg-darkBg">
-            <p className="text-sm text-paragraph mb-2">Residential</p>
-            <p className="text-white text-4xl font-teko max-w-[295px] group-hover:text-main">
-              Class aptent taciti sociosqu ad litora torquent
-            </p>
-          </div>
-        </div>
-        <div className="lg:w-1/2 h-[700px] relative group">
-          <img
-            src="./images/project-2.png"
-            className="absolute w-full h-full object-cover"
-            alt=""
-          />
-          <div className="absolute bottom-0 left-0 px-14 py-10 bg-darkBg">
-            <p className="text-sm text-paragraph mb-2">Residential</p>
-            <p className="text-white text-4xl font-teko max-w-[295px] group-hover:text-main">
-              Class aptent taciti sociosqu ad litora torquent
-            </p>
-          </div>
-        </div> */}
       </div>
       <div className="bg-white py-[65px]">
         <ContainerSecond>
@@ -311,75 +224,11 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
                 )
               })
             }
-            {/* <div>
-              <p className="text-paragraph max-w-[500px]">
-                Class aptent taciti sociosqu ad litora torquent per conubia
-                nostra.faucibus sed dolor eget posuere Nam ac elit a ante vitae
-                viverra urna nulla. Mauris elementum accumsan leo vel tempor.
-              </p>
-              <div className="flex gap-6 mt-10">
-                <img
-                  src="./images/client-1.png"
-                  width="55"
-                  height="55"
-                  className="border-round object-cover object-center"
-                  alt=""
-                />
-                <div>
-                  <p className="font-medium font-teko text-lg">Jont Hennry</p>
-                  <p className="opacity-50 text-sm">Ceo chiart</p>
-                </div>
-              </div>
-            </div>
-            <div>
-              <p className="text-paragraph max-w-[500px]">
-                Class aptent taciti sociosqu ad litora torquent per conubia
-                nostra.faucibus sed dolor eget posuere Nam ac elit a ante vitae
-                viverra urna nulla. Mauris elementum accumsan leo vel tempor.
-              </p>
-              <div className="flex gap-6 mt-10">
-                <img
-                  src="./images/client-2.png"
-                  width="55"
-                  height="55"
-                  className="border-round object-cover object-center"
-                  alt=""
-                />
-                <div>
-                  <p className="font-medium font-teko text-lg">Jont Hennry</p>
-                  <p className="opacity-50 text-sm">Ceo chiart</p>
-                </div>
-              </div>
-            </div> */}
           </div>
           <Partners partnersContent={partnersContent} />
-          {/* <div className="py-[65px]">
-            <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
-            <p className="uppercase font-teko text-2xl font-medium w-[150px] leading-none">
-              Our
-              <br /> blog & news
-            </p>
-            <div className="flex flex-wrap justify-between mt-16 gap-14">
-              <div>
-                <img src="./images/blog-1.png" width='443' height='275' className='object-cover object-center' alt="blog" />
-                <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
-              </div>
-              <div>
-                <img src="./images/blog-2.png" width='443' height='275' className='object-cover object-center' alt="blog" />
-                <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
-              </div>
-              <div>
-                <img src="./images/blog-3.png" width='443' height='275' className='object-cover object-center' alt="blog" />
-                <p className="text-paragraph mb-4 mt-9">Residential | 06/01/2020</p>
-                <p className="max-w-[338px] font-teko text-[27px] leading-none">Class aptent taciti sociosqu ad litora torquent</p>
-              </div>
-            </div>
-          </div> */}
         </ContainerSecond>
       </div>
-      <Footer contactContent={contactContent} menuItems={menuItems} />
+      <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
     </div>
   );
 }
@@ -397,6 +246,9 @@ export async function getStaticProps(context) {
   const dataServices = await client.query({
     query: GET_SERVICES
   });
+  const dataSocialMedia = await client.query({
+    query: GET_SOCIALMEDIA
+  });
   return {
     props: {
       menuItems:data?.menuItems?.edges,
@@ -407,6 +259,7 @@ export async function getStaticProps(context) {
       servicesItems:dataServices?.data?.services?.nodes,
       servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
       contactContent:dataContact?.data?.Contact?.content,
+      dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
     },
     revalidate: 1
   }

@@ -13,8 +13,9 @@ import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
 import { GET_PRODUCT } from "../queries/get-product";
 import { GET_PRODUCTS } from "../queries/get-products";
+import { GET_SOCIALMEDIA } from "../queries/social-media";
 
-export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg}) {
+export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg, dataSocialMedia}) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("cart")?.split(",")) {
@@ -212,7 +213,7 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
                 }
             </ContainerSecond>
         </div>
-        <Footer contactContent={contactContent} menuItems={menuItems} />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
     </>
   )
 }
@@ -226,6 +227,9 @@ export async function getStaticProps(context) {
     const cartImg = await client.query({
         query: GET_CART
       });
+      const dataSocialMedia = await client.query({
+        query: GET_SOCIALMEDIA
+      });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
@@ -234,6 +238,7 @@ export async function getStaticProps(context) {
             shopContent:data?.Shop?.content,
             contactContent:dataContact?.data?.Contact?.content,
             cartImg:cartImg?.data?.Cart?.featuredImage?.node?.sourceUrl,
+            dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1
     }
