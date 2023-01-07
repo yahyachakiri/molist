@@ -70,7 +70,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     setRightDisable(false);
   }
   // console.log(homeContent.split('src="')[1].split('"')[0]);
-  // console.log(homeContent.split('<p class="parag">')[2].split('</p>')[0]);
+  // console.log(homeContent.split('<p className="parag">')[2].split('</p>')[0]);
   // useEffect(() => {
   //   main();
   // }, []);
@@ -122,9 +122,9 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
             </h1>
           </div>
           <div className="absolute left-6 bottom-8 flex flex-col gap-4">
-            <Link href={dataSocialMedia?.facebook ? dataSocialMedia?.facebook : ""} className="group"><i class="fa-brands fa-facebook-f group-hover:text-mainSecond text-xl"></i></Link>
-            <Link href={dataSocialMedia?.intagram ? dataSocialMedia?.intagram : ""} className="group"><i class="fa-brands fa-instagram group-hover:text-mainSecond text-xl"></i></Link>
-            <Link href={dataSocialMedia?.linkedin ? dataSocialMedia?.linkedin : ""} className="group"><i class="fa-brands fa-linkedin-in group-hover:text-mainSecond text-xl"></i></Link>
+            <Link href={dataSocialMedia?.facebook ? dataSocialMedia?.facebook : ""} className="group"><i className="fa-brands fa-facebook-f group-hover:text-mainSecond text-xl"></i></Link>
+            <Link href={dataSocialMedia?.intagram ? dataSocialMedia?.intagram : ""} className="group"><i className="fa-brands fa-instagram group-hover:text-mainSecond text-xl"></i></Link>
+            <Link href={dataSocialMedia?.linkedin ? dataSocialMedia?.linkedin : ""} className="group"><i className="fa-brands fa-linkedin-in group-hover:text-mainSecond text-xl"></i></Link>
           </div>
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
@@ -135,12 +135,12 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
               </div>
             </div>
-            <div className="flex sm:gap-[30px] gap-[15px]">
+            <div className="flex items-end sm:gap-[30px] gap-[15px]">
               {
                 servicesItems.slice((count - 1)*3, 3 * count).map(item => {
                   return (
-                    <Link href={`/services/${item?.id}`} key={item.title} className="font-medium group">
-                      <div className="h-1 w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
+                    <Link key={servicesItems.indexOf(item)} href={`/services/${item?.id}`} className="font-medium group">
+                      <div className="w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
                       <p className="mb-3 group-hover:text-main transition duration-300 w-[150px] max-h-[48px] overflow-hidden">
                         {
                           item?.title

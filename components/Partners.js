@@ -9,7 +9,7 @@ export const Partners = ({partnersContent}) => {
         <div className="py-[65px] flex flex-wrap justify-center items-center gap-14" id='our-partners'>
         {
             partners.map(partner => {
-                return <img key={partner} src={partner} className="object-contain" alt="" />
+                return <img key={partners.indexOf(partner)} src={partner} className="object-contain" alt="" />
             })
         }
         </div>

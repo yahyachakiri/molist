@@ -35,10 +35,10 @@ export const Info = ({homeContent}) => {
                         {
                             array.map(item => {
                                 return (
-                                    <>
+                                    <div key={array.indexOf(item)}>
                                         <p className="font-thin text-white text-5xl font-helveticaneue">{item.number}</p>
                                         <p className="text-sm">{item.description}</p>
-                                    </>
+                                    </div>
                                 )
                             })
                         }

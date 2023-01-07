@@ -14,9 +14,9 @@ export const Footer = ({menuItems, contactContent, dataSocialMedia}) => {
                 <div>
                     <p>Copyright &copy; {new Date().getFullYear()} All Rights Reversed.</p>
                     <div className='flex gap-4 mt-4'>
-                    <Link href={dataSocialMedia?.facebook ? dataSocialMedia?.facebook : ""} className="group"><i class="fa-brands fa-facebook-f group-hover:text-mainSecond text-xl"></i></Link>
-                    <Link href={dataSocialMedia?.intagram ? dataSocialMedia?.intagram : ""} className="group"><i class="fa-brands fa-instagram group-hover:text-mainSecond text-xl"></i></Link>
-                    <Link href={dataSocialMedia?.linkedin ? dataSocialMedia?.linkedin : ""} className="group"><i class="fa-brands fa-linkedin-in group-hover:text-mainSecond text-xl"></i></Link>
+                    <Link href={dataSocialMedia?.facebook ? dataSocialMedia?.facebook : ""} className="group"><i className="fa-brands fa-facebook-f group-hover:text-mainSecond text-xl"></i></Link>
+                    <Link href={dataSocialMedia?.intagram ? dataSocialMedia?.intagram : ""} className="group"><i className="fa-brands fa-instagram group-hover:text-mainSecond text-xl"></i></Link>
+                    <Link href={dataSocialMedia?.linkedin ? dataSocialMedia?.linkedin : ""} className="group"><i className="fa-brands fa-linkedin-in group-hover:text-mainSecond text-xl"></i></Link>
                     </div>
                 </div>
                 <div className='flex flex-col gap-2 max-w-[250px]'>
