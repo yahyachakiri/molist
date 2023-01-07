@@ -13,21 +13,20 @@ import { Services } from "../components/Services";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_HOME } from "../queries/get-home";
 import { GET_MENU } from "../queries/get-menu";
+import { GET_PARTNERS } from "../queries/get-partners";
 import { GET_PROJECTS } from "../queries/get-projects";
 import { GET_SERVICES } from "../queries/get-services";
 import { GET_SOCIALMEDIA } from "../queries/social-media";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, partnersContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia}) {
+export default function Home({ homeContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia,partnersData}) {
+  console.log(partnersData);
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
   const [leftDisable, setLeftDisable] = useState(true);
   const [widthBar, setWidthBar] = useState(`30%`);
   const [paragArray, setParagArray] = useState([]);
-  // console.log(dataSocialMedia);
-  // console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
-  // console.log(projectsItems[0].categories.nodes.name)
   const onProjectClickRight = () => {
     if (projectsItems.length > countProject + 2) {
       setCountProject(countProject + 2);
@@ -47,7 +46,6 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     }
   }, [])
   useEffect(() => {
-    // setWidthBar((count/3)*100)
     setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/3))*100)}%`)
   }, [count])
   const onClickRight = () => {
@@ -167,7 +165,9 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
       </div>
       <Info homeContent={homeContent} />
       <Services homeContent={homeContent} servicesItems={servicesItems} servicesCategories={servicesCategories} />
-      <div className="flex relative flex-col lg:flex-row">
+      {
+        projectsItems.length > 0 &&
+        <div className="flex relative flex-col lg:flex-row">
         <div className="absolute left-[5%] top-1/2 translate-y-[-50%] z-10">
           <Arrow left onClickAction={onProjectClickLeft} />
         </div>
@@ -193,9 +193,13 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
             )
           })
         }
-      </div>
+        </div>
+      }
       <div className="bg-white py-[65px]">
         <ContainerSecond>
+        {
+          clients.length > 0 &&
+          <>
           <hr className="w-35 bg-main mb-8 h-0.5 w-40" />
           <p className="uppercase font-teko text-2xl font-medium w-[100px] leading-none">
             Happy client says
@@ -226,8 +230,10 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
               })
             }
           </div>
-          <Partners partnersContent={partnersContent} />
-        </ContainerSecond>
+          </>
+        }
+        <Partners partnersData={partnersData} />
+      </ContainerSecond>
       </div>
       <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
     </div>
@@ -250,17 +256,20 @@ export async function getStaticProps(context) {
   const dataSocialMedia = await client.query({
     query: GET_SOCIALMEDIA
   });
+  const dataPartners = await client.query({
+      query: GET_PARTNERS
+  });
   return {
     props: {
       menuItems:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
       homeImg:data?.Home?.featuredImage?.node?.sourceUrl,
-      partnersContent: data?.Partners?.content,
       projectsItems:dataProjects?.data?.projects?.nodes,
       servicesItems:dataServices?.data?.services?.nodes,
       servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
       contactContent:dataContact?.data?.Contact?.content,
       dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
+      partnersData:dataPartners?.data?.partners?.nodes,
     },
     revalidate: 1
   }

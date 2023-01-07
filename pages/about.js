@@ -12,12 +12,13 @@ import { TeamMember } from "../components/TeamMember";
 import { GET_ABOUT } from "../queries/get-about";
 import { GET_CONTACT } from "../queries/get-contact";
 import { GET_MENU } from "../queries/get-menu";
+import { GET_PARTNERS } from "../queries/get-partners";
 import { GET_SERVICES } from "../queries/get-services";
 import { GET_TEAM } from "../queries/get-team";
 import { GET_SOCIALMEDIA } from "../queries/social-media";
 import { imgValue } from "../util/classValue";
 
-export default function about({menuItems, partnersContent, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg, dataSocialMedia}) {
+export default function about({menuItems, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg, dataSocialMedia, partnersData}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -125,7 +126,7 @@ export default function about({menuItems, partnersContent, homeContent, aboutCon
                     world before he landed in Istanbul."
             /> */}
             </Container>
-            <Partners partnersContent={partnersContent} />
+            <Partners partnersData={partnersData} />
         </div>
         <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
         </div>
@@ -148,18 +149,21 @@ export async function getStaticProps(context) {
       const dataSocialMedia = await client.query({
         query: GET_SOCIALMEDIA
       });
+      const dataPartners = await client.query({
+        query: GET_PARTNERS
+    });
     return {
         props: {
             menuItems:data?.menuItems?.edges,
             homeContent:data?.Home?.content,
             aboutContent:data?.About?.content,
             aboutImg:data?.About?.featuredImage?.node?.sourceUrl,
-            partnersContent: data?.Partners?.content,
             servicesItems:dataServices?.data?.services?.nodes,
             servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,
             contactContent:dataContact?.data?.Contact?.content,
             teamData:dataTeam?.data?.teams?.nodes,
             dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
+            partnersData:dataPartners?.data?.partners?.nodes,
         },
         revalidate: 1
     }
