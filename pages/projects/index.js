@@ -33,7 +33,7 @@ export default function projects({menuItems, ProjectsCategory, projects, project
             </h1>
             <div className="flex gap-12 flex-wrap my-14">
                 {
-                    ProjectsCategory.map(item => {
+                    ProjectsCategory && ProjectsCategory.map(item => {
                         return (
                             <button key={item.id} onClick={() => setProjectCategory(item.id)} className="font-black uppercase group">
                                 <hr className={`"w-35 bg-main mb-2 h-1 w-8 group-hover:opacity-100" ${projectCategory === item.id ? "opacity-100" : "opacity-0"}`} />
@@ -86,7 +86,7 @@ export async function getStaticProps(context) {
     return {
         props: {
             menuItems:data?.menuItems?.edges,
-            ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
+            // ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
             projects:data?.projects?.nodes,
             projectsContent:data?.Content?.content,
             projectsImg:data?.Content?.featuredImage?.node?.sourceUrl,
