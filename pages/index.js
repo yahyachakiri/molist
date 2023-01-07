@@ -20,7 +20,6 @@ import { GET_SOCIALMEDIA } from "../queries/social-media";
 import main from "./../public/images/main.png";
 
 export default function Home({ homeContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia,partnersData}) {
-  console.log(partnersData);
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
@@ -67,11 +66,6 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
     }
     setRightDisable(false);
   }
-  // console.log(homeContent.split('src="')[1].split('"')[0]);
-  // console.log(homeContent.split('<p className="parag">')[2].split('</p>')[0]);
-  // useEffect(() => {
-  //   main();
-  // }, []);
   const [submainArray, setSubmainArray] = useState([]);
     for (let i = 1; i < homeContent.split('main-p').length; i++) {
     paragArray[i-1] = {title: homeContent.split('main-p')[i]?.split('>')[1]?.split('</')[0]}

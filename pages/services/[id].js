@@ -1,5 +1,4 @@
 /* eslint-disable @next/next/no-img-element */
-import { useRouter } from 'next/router'
 import React, { useEffect, useState } from 'react'
 import client from '../../apollo/client';
 import { ContainerSecond } from '../../components/ContainerSecond';
@@ -15,21 +14,8 @@ import { ArticleHeader } from '../../components/ArticleHeader';
 import { GET_SOCIALMEDIA } from '../../queries/social-media';
 
 export default function Page({menuItems, title, content, image, id, contactContent, loading, dataSocialMedia}) {
-//   const [cart, setCart] = useState("");
-//     useEffect(() => {
-//         if (cart === id) {
-//             if (localStorage.getItem("cart") !== "" && localStorage.getItem("cart")) {
-//                 localStorage.setItem("cart", [...localStorage.getItem("cart")?.split(","), cart]);
-//             } else {
-//                 localStorage.setItem("cart", [cart]);
-//             }
-//         }
-//         return () => {
-//             setCart("");
-//         }
-//     }, [cart])
 
-  if (title) {
+  if (loading == false && title) {
     return (
       <>
         <Header menuItems={menuItems}/>
@@ -37,7 +23,7 @@ export default function Page({menuItems, title, content, image, id, contactConte
         <ContainerSecond className='py-10'>
           <div className='services' dangerouslySetInnerHTML={{__html: content}}/>
         </ContainerSecond>
-        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia}  />
+        <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
       </>
     )
   }
@@ -69,13 +55,13 @@ export async function getStaticProps({params}) {
   return {
       props: {
           menuItems:data?.menuItems?.edges,
-        loading: loading,
-        title: data?.service?.title,
-        id: data?.service?.id,
-        image:data?.service?.featuredImage?.node?.sourceUrl,
-        content: data?.service?.content,
-        contactContent:dataContact?.data?.Contact?.content,
-        dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
+          loading: loading,
+          title: data?.service?.title,
+          id: data?.service?.id,
+          image:data?.service?.featuredImage?.node?.sourceUrl,
+          content: data?.service?.content,
+          contactContent:dataContact?.data?.Contact?.content,
+          dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
       },
       revalidate: 1
   }

@@ -26,8 +26,8 @@ export const Footer = ({menuItems, contactContent, dataSocialMedia}) => {
                             return <p key={loopClassValue(contactContent, 'info').indexOf(item)}>{item}</p>
                         })
                     }
-                    {/* <p>+905434950753</p>
-                    <p>contact@molis.net</p> */}
+                    {/* <p>+905434950753</p> */}
+                    {/* <p>contact@molis.net</p> */}
                     <p>{classValue(contactContent,'email')}</p>
                 </div>
                 <ul className='flex flex-col gap-2'>
