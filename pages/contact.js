@@ -1,10 +1,12 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import { useMutation } from '@apollo/client';
 import React, { useEffect, useState } from 'react'
 import client from '../apollo/client';
 import { ArticleHeader } from '../components/ArticleHeader'
 import { Container } from '../components/Container';
 import { Footer } from '../components/Footer';
 import { Header } from '../components/Header';
+import { SEND_EMAIL_RECEIPT } from '../queries/email-receipt';
 import { GET_CONTACT } from '../queries/get-contact';
 import { GET_MENU } from '../queries/get-menu';
 import { GET_SOCIALMEDIA } from '../queries/social-media';
@@ -16,6 +18,26 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
     useEffect(() => {
         setMap(true);
     }, []);
+    let emailReceipt = "";
+    let name;
+    let email;
+    let message;
+    const [sendEmailReceiptFunc, sendEmailReceiptReturn] = useMutation(SEND_EMAIL_RECEIPT);
+    const emailMessage = (client) => {
+        emailReceipt = `
+            <div style="color: #000;">
+                <p style="color: #000;">Request from: ${client.name},</p>
+                <p style="color: #000;">Email: ${client.email},</p>
+                <p style="color: #000;">${client.message && `Message: ${client.message}`}</p>
+            </div>
+            `;
+        
+    }
+    const [sendRequest, setSendRequest] = useState(false);
+    const [sendRequestMsg, setSendRequestMsg] = useState("");
+    const validEmail = new RegExp(
+        '^[a-zA-Z0-9._:$!%-]+@[a-zA-Z0-9.-]+.[a-zA-Z]$'
+    );
     return (
         <div>
             <Header menuItems={menuItems} />
@@ -48,16 +70,38 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
                         </div>
                         <p>{classValue(contactContent,'email')}</p>
                     </div>
-                    <form action="" className='text-white'>
+                    <form action="" className='text-white'
+                    onSubmit={e => {
+                        e.preventDefault();
+                        if (validEmail.test(email.value) && name.value !== "") {
+                            setSendRequest(true);
+                            setSendRequestMsg("Loading...");
+                            emailMessage({name: name.value, email: email.value, message: message.value});
+                            sendEmailReceiptFunc({ variables: { body: emailReceipt }})
+                            .then(e => { 
+                                if (e.data?.sendEmail?.sent) {
+                                    setSendRequestMsg("Message Sent");
+                                } else setSendRequestMsg("Message Not Sent Try Again")})
+                            .catch(e => {console.log(e);setSendRequestMsg("There is a problem try again later")});
+                        } else {
+                            setSendRequest(true); 
+                            setSendRequestMsg("Please enter your name and a valid email")
+                        }
+                    }
+                    }
+                    >
                         <h2 className="font-teko font-medium text-2xl uppercase">Get in touch</h2>
                         <div className="flex gap-16 flex-wrap max-w-[671px] mt-8">
-                            <input type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
-                            <input type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
+                            <input ref={node => { name = node;}} type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
+                            <input ref={node => { email = node;}} type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
                         </div>
-                        <textarea rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' placeholder='Here goes your message' />
-                        <div className="flex items-center mt-11 cursor-pointer">
-                            <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase' value="Send message" />
-                            <svg xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path fill="#F3B03C" d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                        <textarea ref={node => { message = node;}} rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' placeholder='Here goes your message' />
+                        <div className="flex justify-between items-end text-white">
+                            <div className="flex items-center mt-11 cursor-pointer">
+                                <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase' value="Send message" />
+                                <svg xmlns="http://www.w3.org/2000/svg" width="38.999" height="10.997"><path fill="#F3B03C" d="m31 0 8 5.5-8 5.5ZM0 6V5h31v1Z" data-name="arrow view"/></svg>
+                            </div>
+                            {sendRequest && <p className="uppercase font-bold">{sendRequestMsg}</p>}
                         </div>
                     </form>
                 </Container>

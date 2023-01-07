@@ -30,19 +30,7 @@ export const Info = ({homeContent}) => {
                         <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">Vision</h1>
                         <p className="text-sm">{classValue(homeContent, 'vision')}</p>
                     </div>
-                    <div className="max-w-[310px] flex flex-col gap-4 text-paragraph">
-                        <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">OUR ACHIEVEMENTS</h1>
-                        {
-                            array.map(item => {
-                                return (
-                                    <div key={array.indexOf(item)}>
-                                        <p className="font-thin text-white text-5xl font-helveticaneue">{item.number}</p>
-                                        <p className="text-sm">{item.description}</p>
-                                    </div>
-                                )
-                            })
-                        }
-                    </div>
+                    <iframe width='853' height='480' src='https://www.dreamreality.com.tr/3d-model/molist/fullscreen/' frameborder='0' allow='vr' allowfullscreen='allowfullscreen'></iframe>
                 </div>
             </ContainerSecond>
         </div>
