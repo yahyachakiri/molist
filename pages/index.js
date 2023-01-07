@@ -25,7 +25,7 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
   const [leftDisable, setLeftDisable] = useState(true);
   const [widthBar, setWidthBar] = useState(`30%`);
   const [paragArray, setParagArray] = useState([]);
-  console.log(dataSocialMedia);
+  // console.log(dataSocialMedia);
   // console.log(projectsItems[3]?.featuredImage?.node?.sourceUrl)
   // console.log(projectsItems[0].categories.nodes.name)
   const onProjectClickRight = () => {
@@ -51,10 +51,10 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/3))*100)}%`)
   }, [count])
   const onClickRight = () => {
-    if (count < Math.ceil(paragArray.length/3)) {
+    if (count < Math.ceil(servicesItems.length/3)) {
       setCount(count + 1);
     }
-    if (count == Math.ceil(paragArray.length/3) - 1) {
+    if (count == Math.ceil(servicesItems.length/3) - 1) {
       setRightDisable(true);
     }
     setLeftDisable(false);
@@ -63,7 +63,8 @@ export default function Home({ homeContent, partnersContent, contactContent, pro
     if (count > 1) {
       setCount(count - 1);
     }
-    if (count >= Math.ceil(paragArray.length/3) && count > 1) {
+    // if (count >= Math.ceil(servicesItems.length/3) && count > 1) {
+    if (count == 2) {
       setLeftDisable(true);
     }
     setRightDisable(false);
