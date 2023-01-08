@@ -6,6 +6,11 @@ import { Service } from './Service'
 
 export const Services = ({about, homeContent, servicesArray, servicesCategories, servicesItems}) => {
     const [serviceId, setServiceId] = useState(1);
+    useEffect(() => {
+        servicesCategories.map(category => {
+            if (category.name == "INTERFACES") setServiceId(servicesCategories.indexOf(category));
+        })
+    }, []);
     
     return (
         <div className={`bg-white py-[50px] relative ${!about && 'overflow-hidden'}`}>

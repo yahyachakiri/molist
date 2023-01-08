@@ -38,21 +38,21 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
     }
   }
   useEffect(() => {
-    if (count == Math.ceil(paragArray.length/3) - 1) {
+    if (count == Math.ceil(paragArray.length/2) - 1) {
       setRightDisable(true);
     }
-    if (count >= Math.ceil(paragArray.length/3) && count > 1) {
+    if (count >= Math.ceil(paragArray.length/2) && count > 1) {
       setLeftDisable(true);
     }
   }, [])
   useEffect(() => {
-    setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/3))*100)}%`)
+    setWidthBar(`${parseInt((count/Math.ceil(paragArray.length/2))*100)}%`)
   }, [count])
   const onClickRight = () => {
-    if (count < Math.ceil(servicesItems.length/3)) {
+    if (count < Math.ceil(servicesItems.length/2)) {
       setCount(count + 1);
     }
-    if (count == Math.ceil(servicesItems.length/3) - 1) {
+    if (count == Math.ceil(servicesItems.length/2) - 1) {
       setRightDisable(true);
     }
     setLeftDisable(false);
@@ -61,7 +61,7 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
     if (count > 1) {
       setCount(count - 1);
     }
-    // if (count >= Math.ceil(servicesItems.length/3) && count > 1) {
+    // if (count >= Math.ceil(servicesItems.length/2) && count > 1) {
     if (count == 2) {
       setLeftDisable(true);
     }
@@ -128,7 +128,7 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
               <p className=" text-[30px] font-black">
-                <span className="text-[72px]">0{count}</span>/0{Math.ceil(servicesItems.length/3)}
+                <span className="text-[72px]">0{count}</span>/0{Math.ceil(servicesItems.length/2)}
               </p>
               <div className="h-[3px] w-[180px] bg-[#C2C2C2] mb-8 relative">
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>
@@ -136,7 +136,7 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
             </div>
             <div className="flex items-end sm:gap-[30px] gap-[15px]">
               {
-                servicesItems.slice((count - 1)*3, 3 * count).map(item => {
+                servicesItems.slice((count - 1)*2, 2 * count).map(item => {
                   return (
                     <Link key={servicesItems.indexOf(item)} href={`/services/${item?.id}`} className="font-medium group">
                       <div className="w-9 bg-main opacity-0 group-hover:opacity-100 transition duration-300"></div>
