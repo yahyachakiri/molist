@@ -4,6 +4,13 @@ export const GET_PRODUCTS = gql`
 query NewQuery {
     Shop: pageBy(uri: "shop") {
       content
+      seo {
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        title
+      }
       featuredImage {
         node {
           sourceUrl

@@ -1,3 +1,4 @@
+import Head from 'next/head';
 import { useRouter } from 'next/router'
 import React from 'react'
 import client from '../../apollo/client';
@@ -11,7 +12,7 @@ import { GET_PROJECTS } from '../../queries/get-projects';
 import { GET_SOCIALMEDIA } from '../../queries/social-media';
 import {imgValue, loopImgValue} from '../../util/classValue'
 
-export default function Page({menuItems, title, projectContent, contactContent, projectImage, dataSocialMedia}) {
+export default function Page({menuItems, title, projectContent, contactContent, projectImage, dataSocialMedia, seo}) {
   let propertyArray = [];
   for (let i = 1; i < projectContent?.split('property-title').length; i++) {
       propertyArray.push({
@@ -29,6 +30,12 @@ export default function Page({menuItems, title, projectContent, contactContent, 
   if (projectContent) {
     return (
       <>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems} />
               {/* <img src={projectImage} alt="" className='w-full h-[300px] sm:h-[633px] object-cover object-center' /> */}
               {/* <ContainerSecond>
@@ -103,6 +110,7 @@ export async function getStaticProps({params}) {
           projectContent: data?.Project?.content,
           projectImage: data?.Project?.featuredImage?.node?.sourceUrl,
           contactContent:dataContact?.data?.Contact?.content,
+          seo:dataContact?.data?.Contact?.seo,
           dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
       },
       revalidate: 1

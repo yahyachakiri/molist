@@ -1,5 +1,6 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from '@apollo/client';
+import Head from 'next/head';
 import React, { useEffect, useState } from 'react'
 import client from '../apollo/client';
 import { ArticleHeader } from '../components/ArticleHeader'
@@ -12,7 +13,7 @@ import { GET_MENU } from '../queries/get-menu';
 import { GET_SOCIALMEDIA } from '../queries/social-media';
 import { classValue, imgValue, loopClassValue } from "../util/classValue";
 
-export default function contact({menuItems, contactContent, contactImg, dataSocialMedia}) {
+export default function contact({menuItems, contactContent, contactImg, dataSocialMedia, seo}) {
     const [map, setMap] = useState(false);
     const location=contactContent?.split('href="')[1]?.split('"')[0];
     useEffect(() => {
@@ -40,6 +41,12 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
     );
     return (
         <div>
+            <Head>
+                { seo?.title && <title>{seo?.title}</title>}
+                { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+                { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+                { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+            </Head>
             <Header menuItems={menuItems} />
             <ArticleHeader title='contact' image={contactImg} white />
             {/* <div className='w-full h-[900px] m-laptop:h-[1460px]'> */}
@@ -122,6 +129,7 @@ export async function getStaticProps(context) {
         props: {
             menuItems:data?.menuItems?.edges,
             contactContent:data?.Contact?.content,
+            seo:data?.Contact?.seo,
             contactImg:data?.Contact?.featuredImage?.node?.sourceUrl,
             dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },

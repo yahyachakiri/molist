@@ -1,3 +1,4 @@
+import Head from "next/head";
 import React from "react";
 import client from "../apollo/client";
 import { ArticleHeader } from "../components/ArticleHeader";
@@ -18,7 +19,7 @@ import { GET_TEAM } from "../queries/get-team";
 import { GET_SOCIALMEDIA } from "../queries/social-media";
 import { imgValue } from "../util/classValue";
 
-export default function about({menuItems, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg, dataSocialMedia, partnersData}) {
+export default function about({menuItems, homeContent, aboutContent, contactContent, servicesItems, servicesCategories, teamData, aboutImg, dataSocialMedia, partnersData, seo}) {
     let members = [];
     for (let i = 1; i < aboutContent.split('member-img').length; i++) {
         members.push({
@@ -30,6 +31,12 @@ export default function about({menuItems, homeContent, aboutContent, contactCont
     }
     return (
         <div>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems} />
         <ArticleHeader image={aboutImg} title='About us' />
         <Info homeContent={homeContent} />
@@ -157,6 +164,7 @@ export async function getStaticProps(context) {
             menuItems:data?.menuItems?.edges,
             homeContent:data?.Home?.content,
             aboutContent:data?.About?.content,
+            seo:data?.About?.seo,
             aboutImg:data?.About?.featuredImage?.node?.sourceUrl,
             servicesItems:dataServices?.data?.services?.nodes,
             servicesCategories:dataServices?.data?.categories?.nodes[0]?.children?.nodes,

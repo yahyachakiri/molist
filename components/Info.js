@@ -30,7 +30,7 @@ export const Info = ({homeContent}) => {
                         <h1 className="font-helveticaneue-black text-[27px] uppercase text-white">Vision</h1>
                         <p className="text-sm">{classValue(homeContent, 'vision')}</p>
                     </div>
-                    <iframe width='853' height='480' src='https://www.dreamreality.com.tr/3d-model/molist/fullscreen/' frameborder='0' allow='vr' allowfullscreen='allowfullscreen'></iframe>
+                    <iframe width='853' height='480' src='https://www.dreamreality.com.tr/3d-model/molist/fullscreen/' frameBorder='0' allow='vr' allowFullScreen='allowfullscreen'></iframe>
                 </div>
             </ContainerSecond>
         </div>

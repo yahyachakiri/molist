@@ -38,6 +38,15 @@ query NewQuery {
           }
         }
       }
+      servicesPage: pageBy(uri: "services") {
+        seo {
+          metaDesc
+          metaKeywords
+          metaRobotsNofollow
+          metaRobotsNoindex
+          title
+        }
+      }
       menuItems {
         edges {
           node {

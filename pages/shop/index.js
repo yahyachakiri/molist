@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import Head from 'next/head'
 import { useState } from 'react'
 import client from '../../apollo/client'
 import { ArticleHeader } from '../../components/ArticleHeader'
@@ -12,12 +13,18 @@ import { GET_PRODUCTS } from '../../queries/get-products'
 import { GET_SOCIALMEDIA } from '../../queries/social-media'
 import { imgValue } from '../../util/classValue'
 
-export default function Shop({menuItems, categories, shopContent, products, contactContent, shopImg, dataSocialMedia}) {
+export default function Shop({menuItems, categories, shopContent, products, contactContent, shopImg, dataSocialMedia, seo}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     const [cart, setCart] = useState("");
     const [cartItems, setCartItems] = useState([]);
     return (
         <>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems} cart={cart} />
         <div className='bg-white pb-6'>
             <ArticleHeader title='Shop' image={shopImg} white />
@@ -82,6 +89,7 @@ export async function getStaticProps(context) {
             products:data?.products?.nodes,
             categories:data?.Categories?.nodes,
             shopContent:data?.Shop?.content,
+            seo:data?.Shop?.seo,
             shopImg:data?.Shop?.featuredImage?.node?.sourceUrl,
             contactContent:dataContact?.data?.Contact?.content,
             dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,

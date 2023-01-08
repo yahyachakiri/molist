@@ -1,4 +1,5 @@
 import { useMutation, useQuery } from "@apollo/client";
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "../apollo/client";
@@ -15,7 +16,7 @@ import { GET_PRODUCT } from "../queries/get-product";
 import { GET_PRODUCTS } from "../queries/get-products";
 import { GET_SOCIALMEDIA } from "../queries/social-media";
 
-export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg, dataSocialMedia}) {
+export default function Cart({menuItems, productsInfo, categories, contactContent, cartImg, dataSocialMedia, seo}) {
     const [items, setItems] = useState([]);
     useEffect(() => {
         if (localStorage.getItem("cart")?.split(",")) {
@@ -127,6 +128,12 @@ export default function Cart({menuItems, productsInfo, categories, contactConten
 
     return (
     <>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems} items={items} />
         <ArticleHeader title='Cart' image={cartImg} small />
         <div className={`pb-[100px] ${itemsGrouped[0]?.length === 0 && 'flex items-center justify-center'}`}>
@@ -238,6 +245,7 @@ export async function getStaticProps(context) {
             shopContent:data?.Shop?.content,
             contactContent:dataContact?.data?.Contact?.content,
             cartImg:cartImg?.data?.Cart?.featuredImage?.node?.sourceUrl,
+            seo:cartImg?.data?.Cart?.seo,
             dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
         },
         revalidate: 1

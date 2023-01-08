@@ -7,6 +7,13 @@ export const GET_ABOUT = gql`
     }
     About: pageBy(uri: "about") {
       content
+      seo {
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        title
+      }
       featuredImage {
         node {
           sourceUrl

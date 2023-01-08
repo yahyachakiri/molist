@@ -6,6 +6,13 @@ query NewQuery($id: ID!) {
         id
         title
         content
+        seo {
+          metaDesc
+          metaKeywords
+          metaRobotsNofollow
+          metaRobotsNoindex
+          title
+        }
         featuredImage {
           node {
             sourceUrl

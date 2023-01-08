@@ -7,6 +7,13 @@ query NewQuery($slug: String) {
     title
     slug
     content
+    seo {
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      title
+    }
     featuredImage {
       node {
         sourceUrl

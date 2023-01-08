@@ -1,4 +1,5 @@
 /* eslint-disable @next/next/no-img-element */
+import Head from "next/head";
 import Link from "next/link";
 import { useEffect, useState } from "react";
 import client from "../apollo/client";
@@ -19,7 +20,7 @@ import { GET_SERVICES } from "../queries/get-services";
 import { GET_SOCIALMEDIA } from "../queries/social-media";
 import main from "./../public/images/main.png";
 
-export default function Home({ homeContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia,partnersData}) {
+export default function Home({ homeContent, contactContent, projectsItems, servicesItems, servicesCategories, menuItems, homeImg, dataSocialMedia, partnersData, seo}) {
   const [countProject, setCountProject] = useState(0);
   const [count, setCount] = useState(1);
   const [rightDisable, setRightDisable] = useState(false);
@@ -100,6 +101,12 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
   
   return (
     <div>
+      <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
       <Header menuItems={menuItems} />
       <div loading="lazy" style={{backgroundImage: `url(${homeImg})`}} className={` bg-no-repeat bg-cover bg-center`}>
         <Container className="flex flex-wrap min-h-screen mx-auto text-white py-40 relative justify-center main:justify-between min-w-full">
@@ -257,6 +264,7 @@ export async function getStaticProps(context) {
     props: {
       menuItems:data?.menuItems?.edges,
       homeContent:data?.Home?.content,
+      seo:data?.Home?.seo,
       homeImg:data?.Home?.featuredImage?.node?.sourceUrl,
       projectsItems:dataProjects?.data?.projects?.nodes,
       servicesItems:dataServices?.data?.services?.nodes,

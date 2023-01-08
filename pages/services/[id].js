@@ -12,12 +12,19 @@ import { GET_SERVICES } from '../../queries/get-services';
 import { GET_SERVICE } from '../../queries/get-service';
 import { ArticleHeader } from '../../components/ArticleHeader';
 import { GET_SOCIALMEDIA } from '../../queries/social-media';
+import Head from 'next/head';
 
-export default function Page({menuItems, title, content, image, id, contactContent, loading, dataSocialMedia}) {
+export default function Page({menuItems, title, content, image, id, contactContent, loading, dataSocialMedia, seo}) {
 
   if (loading == false && title) {
     return (
       <>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems}/>
         <ArticleHeader title={title} image={image} />
         <ContainerSecond className='py-10'>
@@ -60,6 +67,7 @@ export async function getStaticProps({params}) {
           id: data?.service?.id,
           image:data?.service?.featuredImage?.node?.sourceUrl,
           content: data?.service?.content,
+          seo: data?.service?.seo,
           contactContent:dataContact?.data?.Contact?.content,
           dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,
       },

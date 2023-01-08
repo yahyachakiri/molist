@@ -4,6 +4,13 @@ export const GET_HOME = gql`
 query NewQuery {
   Home:pageBy(uri: "home-page") {
     content
+    seo {
+      metaDesc
+      metaKeywords
+      metaRobotsNofollow
+      metaRobotsNoindex
+      title
+    }
     featuredImage {
       node {
         sourceUrl

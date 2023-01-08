@@ -1,4 +1,5 @@
 /* eslint-disable react-hooks/rules-of-hooks */
+import Head from 'next/head'
 import Link from 'next/link'
 import { useState } from 'react'
 import client from '../../apollo/client'
@@ -14,10 +15,16 @@ import { GET_PROJECTS } from '../../queries/get-projects'
 import { GET_SOCIALMEDIA } from '../../queries/social-media'
 import { classValue, imgValue } from '../../util/classValue'
 
-export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent, projectsImg, dataSocialMedia}) {
+export default function projects({menuItems, ProjectsCategory, projects, projectsContent, contactContent, projectsImg, dataSocialMedia, seo}) {
     const [projectCategory,  setProjectCategory] = useState('all');
     return (
         <>
+        <Head>
+            { seo?.title && <title>{seo?.title}</title>}
+            { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
+            { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
+            { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+        </Head>
         <Header menuItems={menuItems} />
         <div className='bg-white pb-6'>
             <ArticleHeader title='projects' image={projectsImg} white />
@@ -89,6 +96,7 @@ export async function getStaticProps(context) {
             // ProjectsCategory:data?.ProjectsCategory?.nodes[0]?.children?.nodes,
             projects:data?.projects?.nodes,
             projectsContent:data?.Content?.content,
+            seo:data?.Content?.seo,
             projectsImg:data?.Content?.featuredImage?.node?.sourceUrl,
             contactContent:dataContact?.data?.Contact?.content,
             dataSocialMedia:dataSocialMedia?.data?.socialMedias?.socialMedia,

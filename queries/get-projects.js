@@ -41,6 +41,13 @@ query NewQuery {
     }
     Content:pageBy(uri: "projects") {
       content
+      seo {
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        title
+      }
       featuredImage {
         node {
           sourceUrl

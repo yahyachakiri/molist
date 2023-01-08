@@ -4,6 +4,13 @@ export const GET_CONTACT = gql`
   query NewQuery {
     Contact: pageBy(uri: "contact") {
       content
+      seo {
+        metaDesc
+        metaKeywords
+        metaRobotsNofollow
+        metaRobotsNoindex
+        title
+      }
       featuredImage {
         node {
           sourceUrl
