@@ -140,8 +140,8 @@ a {
   background-repeat: no-repeat;
   background-color: red; */
 }
-.font-teko {font-family: 'Bodoni Moda', serif !important;} 
-.font-bodoni {font-family: 'Teko', sans-serif !important;}
+.font-teko {font-family: 'Teko', serif !important;} 
+.font-bodoni {font-family: 'Bodoni Moda', sans-serif !important;}
 .services h1, .services h2, .services h3, .services h4, .services h5, .services h6, .projects h1, .projects h2, .projects h3, .projects h4, .projects h5, .projects h6 {
   font-size: 48px;
   font-family: 'Teko' !important;
