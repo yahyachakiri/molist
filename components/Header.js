@@ -39,9 +39,9 @@ export const Header = ({ cart, items, menuItems}) => {
                     <div className="group w-[30px] flex items-center justify-end">
                         {
                             menu ?
-                            <button onClick={() => setMenu(!menu)}><svg xmlns="http://www.w3.org/2000/svg" width="22.627" height="22.627"><g className='group-hover:fill-mainSecond' fill="#fff" data-name="Group 17"><path d="M0 21.213 21.213 0l1.414 1.414L1.414 22.627z" data-name="Op component 1"/><path d="m1.414 0 21.213 21.213-1.414 1.414L0 1.414z" data-name="Op component 1"/></g></svg></button>
+                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="22.627" height="22.627"><g className='group-hover:fill-mainSecond cursor-pointer' fill="#fff" data-name="Group 17"><path d="M0 21.213 21.213 0l1.414 1.414L1.414 22.627z" data-name="Op component 1"/><path d="m1.414 0 21.213 21.213-1.414 1.414L0 1.414z" data-name="Op component 1"/></g></svg>
                             :
-                            <button onClick={() => setMenu(!menu)}><svg xmlns="http://www.w3.org/2000/svg" width="30" height="14"><path className='group-hover:fill-mainSecond' fill="#fff" d="M15 14v-2h15v2ZM0 8V6h30v2Zm0-6V0h30v2Z" data-name="icon menu"/></svg></button>
+                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="30" height="14"><path className='group-hover:fill-mainSecond cursor-pointer' fill="#fff" d="M15 14v-2h15v2ZM0 8V6h30v2Zm0-6V0h30v2Z" data-name="icon menu"/></svg>
                         }
                     </div>
                 </div>
@@ -65,7 +65,7 @@ export const Header = ({ cart, items, menuItems}) => {
                             {
                                 menuItems?.map(item => {
                                     // return <li key={item?.node?.path}><Link onClick={() => setMenu(false)} href={item?.node?.path.split('-')[0] == '/hash' ? `/#${item?.node?.path.split('-').filter(e => e !== '/hash').join('-').split('/').filter(e => e !== '/').join('')}` : item?.node?.path} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label.split(' ')[0] == 'hash' ? item?.node?.label.split(' ').filter(e => e !== 'hash').join(' ') : item?.node?.label}</Link></li>
-                                    return <li key={item?.node?.url}><Link onClick={() => setMenu(false)} href={item?.node?.url} className='transition duration-300 hover:text-mainSecond'>{item?.node?.label}</Link></li>
+                                    return <li key={item?.node?.url}><Link onClick={() => setMenu(false)} href={item?.node?.url} className='transition duration-300 hover:text-mainSecond font-helveticaneue-black'>{item?.node?.label}</Link></li>
                                 })
                             }
                         </ul>

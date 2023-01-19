@@ -69,13 +69,13 @@
   font-weight: normal;
 }
 .font-helveticaneue {
-  font-family: 'HelveticaNeue';
+  font-family: 'HelveticaNeue' !important;
 }
 .font-helveticaneue-medium-extended {
-  font-family: 'HelveticaNeue Medium Extended';
+  font-family: 'HelveticaNeue Medium Extended' !important;
 }
 .font-helveticaneue-black {
-  font-family: 'HelveticaNeue Black';
+  font-family: 'HelveticaNeue Black' !important;
   /* letter-spacing: 0.1rem; */
 }
 .font-bodoni {
@@ -114,7 +114,7 @@ body {
   /* scroll-behavior: smooth !important; */
   /* font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Oxygen,
     Ubuntu, Cantarell, Fira Sans, Droid Sans, Helvetica Neue, sans-serif; */
-    font-family: 'Roboto';
+    font-family: 'Roboto' !important;
     
   /* background: black; */
 }
@@ -140,11 +140,22 @@ a {
   background-repeat: no-repeat;
   background-color: red; */
 }
-.font-teko {font-family: 'Bodoni Moda', serif;} 
-.font-bodoni {font-family: 'Teko', sans-serif;}
+.font-teko {font-family: 'Bodoni Moda', serif !important;} 
+.font-bodoni {font-family: 'Teko', sans-serif !important;}
 .services h1, .services h2, .services h3, .services h4, .services h5, .services h6, .projects h1, .projects h2, .projects h3, .projects h4, .projects h5, .projects h6 {
   font-size: 48px;
-  font-family: 'Teko';
+  font-family: 'Teko' !important;
   font-weight: 600;
   margin-block: 20px;
 }
+.bg-transparent {
+  background: transparent !important;
+}
+.bg-transparent:hover {
+  background: transparent !important;
+}
+/* .is-layout-flex {
+  display: grid;
+  grid-template-columns: minmax(min-content, 300px) minmax(200px, 1fr) 150px;
+  grid-gap: 5px;
+} */

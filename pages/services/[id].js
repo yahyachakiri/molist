@@ -12,6 +12,7 @@ import { GET_SERVICES } from '../../queries/get-services';
 import { GET_SERVICE } from '../../queries/get-service';
 import { ArticleHeader } from '../../components/ArticleHeader';
 import { GET_SOCIALMEDIA } from '../../queries/social-media';
+// import wordpress from '../../styles/styles.module.css'
 import Head from 'next/head';
 
 export default function Page({menuItems, title, content, image, id, contactContent, loading, dataSocialMedia, seo}) {
@@ -24,11 +25,12 @@ export default function Page({menuItems, title, content, image, id, contactConte
             { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
             { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
             { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
+            <link rel="stylesheet" href="https://admin.molist.net/wp-content/themes/twentytwentyone/style.css" />
         </Head>
         <Header menuItems={menuItems}/>
         <ArticleHeader title={title} image={image} />
         <ContainerSecond className='py-10'>
-          <div className='services' dangerouslySetInnerHTML={{__html: content}}/>
+          <div  className='services' dangerouslySetInnerHTML={{__html: content}}/>
         </ContainerSecond>
         <Footer contactContent={contactContent} menuItems={menuItems} dataSocialMedia={dataSocialMedia} />
       </>
