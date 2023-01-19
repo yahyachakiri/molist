@@ -154,8 +154,28 @@ a {
 .bg-transparent:hover {
   background: transparent !important;
 }
-/* .is-layout-flex {
-  display: grid;
+
+.services p {
+  margin-block: 20px;
+}
+
+.is-layout-flex {
+  /* display: grid;
   grid-template-columns: minmax(min-content, 300px) minmax(200px, 1fr) 150px;
-  grid-gap: 5px;
-} */
+  grid-gap: 5px; */
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  padding: 0 4px;
+}
+.is-layout-flex figure {
+  width: 30%;
+  height: 450px;
+  object-fit: cover;
+  /* display: none; */
+}
+.is-layout-flex figure img {
+  height: 450px;
+  object-fit: cover;
+  /* display: none; */
+}

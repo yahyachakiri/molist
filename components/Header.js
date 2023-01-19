@@ -36,12 +36,12 @@ export const Header = ({ cart, items, menuItems}) => {
                             <span className='absolute top-[-10px] right-[-10px] bg-mainSecond h-[24px] min-w-[24px] flex justify-center items-center rounded-full font-[Teko] font-medium'>{itemsCart.length}</span>
                         }
                     </Link> */}
-                    <div className="group w-[30px] flex items-center justify-end">
+                    <div className="group w-[30px] flex items-center justify-end cursor-pointer">
                         {
                             menu ?
-                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="22.627" height="22.627"><g className='group-hover:fill-mainSecond cursor-pointer' fill="#fff" data-name="Group 17"><path d="M0 21.213 21.213 0l1.414 1.414L1.414 22.627z" data-name="Op component 1"/><path d="m1.414 0 21.213 21.213-1.414 1.414L0 1.414z" data-name="Op component 1"/></g></svg>
+                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="22.627" height="22.627"><g className='group-hover:fill-mainSecond' fill="#fff" data-name="Group 17"><path d="M0 21.213 21.213 0l1.414 1.414L1.414 22.627z" data-name="Op component 1"/><path d="m1.414 0 21.213 21.213-1.414 1.414L0 1.414z" data-name="Op component 1"/></g></svg>
                             :
-                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="30" height="14"><path className='group-hover:fill-mainSecond cursor-pointer' fill="#fff" d="M15 14v-2h15v2ZM0 8V6h30v2Zm0-6V0h30v2Z" data-name="icon menu"/></svg>
+                            <svg onClick={() => setMenu(!menu)} xmlns="http://www.w3.org/2000/svg" width="30" height="14"><path className='group-hover:fill-mainSecond' fill="#fff" d="M15 14v-2h15v2ZM0 8V6h30v2Zm0-6V0h30v2Z" data-name="icon menu"/></svg>
                         }
                     </div>
                 </div>

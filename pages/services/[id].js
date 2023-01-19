@@ -25,7 +25,7 @@ export default function Page({menuItems, title, content, image, id, contactConte
             { seo?.metaDesc && <meta name="description" content={seo?.metaDesc} />}
             { seo?.metaKeywords && <meta name="keywords" content={seo?.metaKeywords} />}
             { (seo?.metaRobotsNofollow && seo?.metaRobotsNoindex) && <meta name="robots" content={`${seo?.metaRobotsNofollow}, ${seo?.metaRobotsNoindex}`} />}
-            <link rel="stylesheet" href="https://admin.molist.net/wp-content/themes/twentytwentyone/style.css" />
+            {/* <link rel="stylesheet" href="https://admin.molist.net/wp-content/themes/twentynineteen/style.css?ver=2.4" /> */}
         </Head>
         <Header menuItems={menuItems}/>
         <ArticleHeader title={title} image={image} />
