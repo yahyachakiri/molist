@@ -1,7 +1,7 @@
 /* eslint-disable react-hooks/rules-of-hooks */
 import { useMutation } from '@apollo/client';
 import Head from 'next/head';
-import React, { useEffect, useState } from 'react'
+import React, { useEffect, useState, useRef } from 'react'
 import client from '../apollo/client';
 import { ArticleHeader } from '../components/ArticleHeader'
 import { Container } from '../components/Container';
@@ -20,15 +20,21 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
         setMap(true);
     }, []);
     let emailReceipt = "";
-    let name;
-    let email;
-    let message;
+    // let [name, setName] = useState('');
+    // let [email, setEmail] = useState('');
+    // let [subject, setSubject] = useState('');
+    // let [message, setMessage] = useState('');
+    const name = useRef(null);
+    const email = useRef(null);
+    const subject = useRef(null);
+    const message = useRef(null);
     const [sendEmailReceiptFunc, sendEmailReceiptReturn] = useMutation(SEND_EMAIL_RECEIPT);
     const emailMessage = (client) => {
         emailReceipt = `
             <div style="color: #000;">
                 <p style="color: #000;">Request from: ${client.name},</p>
                 <p style="color: #000;">Email: ${client.email},</p>
+                <p style="color: #000;">Subject: ${client.subject},</p>
                 <p style="color: #000;">${client.message && `Message: ${client.message}`}</p>
             </div>
             `;
@@ -80,14 +86,18 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
                     <form action="" className='text-white'
                     onSubmit={e => {
                         e.preventDefault();
-                        if (validEmail.test(email.value) && name.value !== "") {
+                        if (validEmail.test(email.current.value) && name.current.value !== "") {
                             setSendRequest(true);
                             setSendRequestMsg("Loading...");
-                            emailMessage({name: name.value, email: email.value, message: message.value});
+                            emailMessage({name: name.current.value, email: email.current.value, subject: subject.current.value, message: message.current.value});
                             sendEmailReceiptFunc({ variables: { body: emailReceipt }})
                             .then(e => { 
                                 if (e.data?.sendEmail?.sent) {
                                     setSendRequestMsg("Message Sent");
+                                    name.current.value='';
+                                    email.current.value='';
+                                    subject.current.value='';
+                                    message.current.value='';
                                 } else setSendRequestMsg("Message Not Sent Try Again")})
                             .catch(e => {console.log(e);setSendRequestMsg("There is a problem try again later")});
                         } else {
@@ -99,10 +109,11 @@ export default function contact({menuItems, contactContent, contactImg, dataSoci
                     >
                         <h2 className="font-teko font-medium text-2xl uppercase">Get in touch</h2>
                         <div className="flex gap-16 flex-wrap max-w-[671px] mt-8">
-                            <input ref={node => { name = node;}} type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
-                            <input ref={node => { email = node;}} type="text" placeholder='Subject' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' />
+                            <input ref={name} type="text" placeholder='Name' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-[#ddd] border-solid border-b-[2px] border-white focus:border-main' />
+                            <input ref={email} type="text" placeholder='Email' className='py-4 w-full contact:w-[300px] bg-darkBg text-white placeholder-[#ddd] border-solid border-b-[2px] border-white focus:border-main' />
                         </div>
-                        <textarea ref={node => { message = node;}} rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-white border-solid border-b-[2px] border-white focus:border-main' placeholder='Here goes your message' />
+                        <input ref={subject} type="text" placeholder='Subject' className='py-4 w-full w-full bg-darkBg text-white placeholder-[#ddd] border-solid border-b-[2px] border-white focus:border-main' />
+                        <textarea ref={message} rows="7" className='mt-11 block w-full bg-darkBg text-white placeholder-[#ddd] border-solid border-b-[2px] border-white focus:border-main' placeholder='Here goes your message'></textarea>
                         <div className="flex justify-between items-end text-white">
                             <div className="flex items-center mt-11 cursor-pointer">
                                 <input type="submit" className='cursor-pointer border-none bg-transparent text-mainThird font-black uppercase' value="Send message" />
