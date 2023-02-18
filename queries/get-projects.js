@@ -12,7 +12,7 @@ query NewQuery {
         }
       }
     }
-    projects {
+    projects (first:100) {
       nodes {
         title
         slug

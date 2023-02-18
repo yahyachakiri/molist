@@ -128,7 +128,7 @@ export default function Home({ homeContent, contactContent, projectsItems, servi
           <div>
             <div className="flex items-end gap-5 w-fit ml-auto">
               <p className=" text-[30px] font-black">
-                <span className="text-[72px]">0{count}</span>/0{Math.ceil(servicesItems.length/2)}
+                <span className="text-[72px]">{count < 10 && "0"}{count}</span>/{Math.ceil(servicesItems.length/2) < 10 && "0"}{Math.ceil(servicesItems.length/2)}
               </p>
               <div className="h-[3px] w-[180px] bg-[#C2C2C2] mb-8 relative">
                 <div style={{width: widthBar}} className={`bar absolute bg-main top-0 left-0 h-full transition duration-700`}></div>

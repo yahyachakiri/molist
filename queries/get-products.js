@@ -23,7 +23,7 @@ query NewQuery {
         id
       }
     }
-    products {
+    products (first:100) {
       nodes {
         ... on SimpleProduct {
           name

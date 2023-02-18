@@ -2,7 +2,7 @@ import { gql } from "@apollo/client";
 
 export const GET_SERVICES = gql`
 query NewQuery {
-  services {
+  services (first:100) {
     nodes {
       title
       content
