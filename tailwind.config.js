@@ -14,6 +14,8 @@ module.exports = {
       'mainSecond': '#FBAD02',
       'mainThird': '#F3B03C',
       'white': 'white',
+      'lightwhite': 'rgba(255, 255, 255, 0.3)',
+      'lightblack': 'rgba(0, 0, 0, 0.3)',
       'black': 'black',
       'darkBg': '#111111',
       'darkBgSecond': '#252525',
